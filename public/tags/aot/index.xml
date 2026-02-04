@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>AOT on Ron&#39;s Tech Blog</title>
+    <link>http://localhost:1313/tags/aot/</link>
+    <description>Recent content in AOT on Ron&#39;s Tech Blog</description>
+    <generator>Hugo -- 0.153.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 20 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/aot/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JEP 516: Ahead-Of-Time Object caching with any GC</title>
+      <link>http://localhost:1313/posts/jep516-aot-object-caching-with-any-gc/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep516-aot-object-caching-with-any-gc/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jep515-AOT-object-caching-with-any-GC.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I have become a greater fan of Project Leyden with every deliverable it produced. I admit, I was sceptical when Chief Language Architect Brian Goetz announced Project Leyden. It felt as if some answer was needed after the arrival of GraalVM and its native images, that had a blistering startup speed. But how could we ever increase the startup of the JVM? Turns out, there are quite of few possibilities.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

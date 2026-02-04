@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>JEP on Ron&#39;s Tech Blog</title>
+    <link>http://localhost:1313/tags/jep/</link>
+    <description>Recent content in JEP on Ron&#39;s Tech Blog</description>
+    <generator>Hugo -- 0.153.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 29 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/jep/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JEP 517: HTTP/3 is Finally Here (Natively)!</title>
+      <link>http://localhost:1313/posts/jep517-http3-for-the-http-client-api/</link>
+      <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep517-http3-for-the-http-client-api/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jep516-HTTP3-for-the-HTTP-Client-API.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If you’ve been waiting for Java to catch up with the modern web, the wait is over. Java 26 updates the &lt;code&gt;java.net.http.HttpClient&lt;/code&gt; (the one we’ve loved since JDK 11) to officially support &lt;strong&gt;HTTP/3&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Here is an example of how to use the API&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;client&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpClient&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newHttpClient&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpRequest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;newBuilder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;URI&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://openjdk.org/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;GET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;client&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;send&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;HttpResponse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;BodyHandlers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;ofString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;assert&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;statusCode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;200&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;htmlText&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Why should you care?&lt;/strong&gt;
+HTTP/3 isn&amp;rsquo;t just a version bump; it swaps out TCP for &lt;strong&gt;QUIC&lt;/strong&gt; (built on UDP). This is a big deal for performance because it solves &amp;ldquo;head-of-line blocking&amp;rdquo;—where one lost packet holds up the entire line of data. It basically means faster handshakes and much more reliable connections, especially if your users are on flaky networks with high packet loss.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>JEP 516: Ahead-Of-Time Object caching with any GC</title>
+      <link>http://localhost:1313/posts/jep516-aot-object-caching-with-any-gc/</link>
+      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep516-aot-object-caching-with-any-gc/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jep515-AOT-object-caching-with-any-GC.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I have become a greater fan of Project Leyden with every deliverable it produced. I admit, I was sceptical when Chief Language Architect Brian Goetz announced Project Leyden. It felt as if some answer was needed after the arrival of GraalVM and its native images, that had a blistering startup speed. But how could we ever increase the startup of the JVM? Turns out, there are quite of few possibilities.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>JEP 504: Remove the Applet API</title>
+      <link>http://localhost:1313/posts/jep504-remove-the-applet-api/</link>
+      <pubDate>Sat, 17 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep504-remove-the-applet-api/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jep504-remove-the-applet-API.png&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Goodbye, Applets! (For Real This Time)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you&amp;rsquo;ve been doing Java for a while, you probably remember the &amp;ldquo;good old days&amp;rdquo; of running Java in the browser. One day, I was visiting London, from Amsterdam, and I bought my first Java book. This was in de the days before you buy anything at Amazon. The book introduced me to applets for the first time. Must have been around the time of Java 1.2, so we&amp;rsquo;re talking about 1998. Fast forward to a few years later and I had a girlfriend who was studying in IT. One of her assigments was to create a functioning chess application, running in a browser via an applet. Did we have fun writing that applet. Or least, I had fun.
+Well, those days of Applet-Chess are over, JEP 504 in Java 26 is finally cleaning house by permanently removing the Applet API.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>JEP 500: Prepare Final Mean Final</title>
+      <link>http://localhost:1313/posts/jep500-finals/</link>
+      <pubDate>Mon, 29 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep500-finals/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jep500-Finals.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;When you have been writing Java for a while, you may have noticed that you are writing &lt;code&gt;final&lt;/code&gt; a lot.
+You typically use it when defining class or instance variables. In those situations the compiler will ensure that need to assign a value before the class constructor completes.
+Or you could use it with parameters, to indicate that the values of these parameters should not be tinkered with.&lt;/p&gt;
+&lt;p&gt;It is Java&amp;rsquo;s version of defining a constant. Or at least, that is what we have been thinking.
+But in real life, a final variable can be changed.
+Take a look at the following example:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

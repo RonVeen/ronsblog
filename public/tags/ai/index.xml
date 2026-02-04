@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>AI on Ron&#39;s Tech Blog</title>
+    <link>http://localhost:1313/tags/ai/</link>
+    <description>Recent content in AI on Ron&#39;s Tech Blog</description>
+    <generator>Hugo -- 0.153.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 30 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Running local LLMs with Ollama</title>
+      <link>http://localhost:1313/shorts/ollama/</link>
+      <pubDate>Fri, 30 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/shorts/ollama/</guid>
+      <description>&lt;p&gt;In your terminal, run: ollama run gpt-oss:20b&lt;/p&gt;
+&lt;p&gt;Inside the Ollama prompt, type: &amp;raquo;&amp;gt; /set parameter num_ctx 32768 &amp;raquo;&amp;gt; /save gpt-oss-32k&lt;/p&gt;
+&lt;p&gt;Exit and restart Claude Code with the new model name: claude &amp;ndash;model gpt-oss-32k&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

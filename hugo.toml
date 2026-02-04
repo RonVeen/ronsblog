@@ -1,0 +1,37 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = "Ron's Tech Blog"
+theme = 'PaperMod'
+
+[params]
+    showCodeCopyButtons = true # Allows readers to copy your Java code easily
+
+[menu]
+  [[menu.main]]
+    identifier = "articles"
+    name = "Articles"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    identifier = "shorts"
+    name = "Shorts"
+    url = "/shorts/"
+    weight = 15
+  [[menu.main]]
+    identifier = "books"
+    name = "Books"
+    url = "/books/"
+    weight = 20
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 30
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    style = "monokai" # High-contrast style great for Java

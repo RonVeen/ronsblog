@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Applet on Ron&#39;s Tech Blog</title>
+    <link>http://localhost:1313/tags/applet/</link>
+    <description>Recent content in Applet on Ron&#39;s Tech Blog</description>
+    <generator>Hugo -- 0.153.3</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 17 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/applet/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JEP 504: Remove the Applet API</title>
+      <link>http://localhost:1313/posts/jep504-remove-the-applet-api/</link>
+      <pubDate>Sat, 17 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep504-remove-the-applet-api/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jep504-remove-the-applet-API.png&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Goodbye, Applets! (For Real This Time)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If you&amp;rsquo;ve been doing Java for a while, you probably remember the &amp;ldquo;good old days&amp;rdquo; of running Java in the browser. One day, I was visiting London, from Amsterdam, and I bought my first Java book. This was in de the days before you buy anything at Amazon. The book introduced me to applets for the first time. Must have been around the time of Java 1.2, so we&amp;rsquo;re talking about 1998. Fast forward to a few years later and I had a girlfriend who was studying in IT. One of her assigments was to create a functioning chess application, running in a browser via an applet. Did we have fun writing that applet. Or least, I had fun.
+Well, those days of Applet-Chess are over, JEP 504 in Java 26 is finally cleaning house by permanently removing the Applet API.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
