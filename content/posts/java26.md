@@ -34,7 +34,7 @@ This enhancement allows the Project Leyden AOT cache to support all garbage coll
 [JEP 517: HTTP/3 for the HTTP Client API](/posts/jep517-http3-for-the-http-client-api/)
 This update enables the `java.net.http.HttpClient` to support HTTP/3, utilizing QUIC over UDP for improved performance in packet-loss environments.
 
-**JEP 522: G1 GC: Improve Throughput by Reducing Synchronization**
+[JEP 522: G1 GC: Improve Throughput by Reducing Synchronization](/posts/jep522-G1-improve-througput-by-reducing-synchronization/)
 This performance improvement for the G1 garbage collector introduces a second "card table" to track heap modifications. This allows application threads and GC optimizer threads to update separate tables, eliminating synchronization locks and simplifying write barriers. The result is a 5–15% throughput increase for applications with heavy reference updates.
 
 **JEP 524: PEM Encodings of Cryptographic Objects (Second Preview)**

@@ -1,5 +1,5 @@
 ---
-title: "JEP 516: Ahead-Of-Time Object caching with any GC"
+title: "Java 26 - part 3: JEP 516 Ahead-Of-Time Object caching with any GC"
 date: 2026-01-20
 draft: false
 tags: ["Java", "JEP", "Java 26", "AOT", "Project Leyden"]

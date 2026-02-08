@@ -1,5 +1,5 @@
 ---
-title: "JEP 504: Remove the Applet API"
+title: "Java 26 - part 2: JEP 504 Remove the Applet API"
 date: 2026-01-17
 draft: false
 tags: ["Java", "JEP", "Java 26", "Applet"]

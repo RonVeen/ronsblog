@@ -1,5 +1,5 @@
 ---
-title: "JEP 517: HTTP/3 is Finally Here (Natively)!"
+title: "Java 26 - part 4: JEP 517 HTTP/3 is Finally Here (Natively)!"
 date: 2026-01-29
 draft: false
 tags: ["Java", "JEP", "Java 26", "HTTP-Client", "HTTP/3"]
