@@ -1,0 +1,27 @@
+/* Compact thumbnails for list cards (PaperMod) */
+@media (min-width: 768px) {
+  .post-entry {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    column-gap: var(--gap);
+    align-items: start;
+  }
+
+  .post-entry .entry-cover {
+    margin: 0; /* remove top/bottom gap when aligned left */
+  }
+
+  .post-entry .entry-cover img {
+    width: 180px;
+    height: 112px; /* 16:10-ish */
+    object-fit: cover;
+  }
+
+  .post-entry .entry-header,
+  .post-entry .entry-content,
+  .post-entry .entry-footer {
+    grid-column: 2;
+  }
+}
+
+/* Keep default stacked layout on small screens */

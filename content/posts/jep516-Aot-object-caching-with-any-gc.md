@@ -3,6 +3,9 @@ title: "Java 26 - part 3: JEP 516 Ahead-Of-Time Object caching with any GC"
 date: 2026-01-20
 draft: false
 tags: ["Java", "JEP", "Java 26", "AOT", "Project Leyden"]
+cover:
+  image: "/images/jep515-AOT-object-caching-with-any-GC.png"
+  alt: "AOT object caching with any GC"
 ---
 
 ![Final](/images/jep515-AOT-object-caching-with-any-GC.png)
