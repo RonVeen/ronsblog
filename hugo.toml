@@ -5,6 +5,7 @@ theme = 'PaperMod'
 
 [params]
     showCodeCopyButtons = true # Allows readers to copy your Java code easily
+    disableSpecial1stPost = true # Make first list item same as others (shows thumbnail)
 
 [menu]
   [[menu.main]]
