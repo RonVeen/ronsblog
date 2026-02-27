@@ -1,17 +1,20 @@
 /* Compact thumbnails for list cards (PaperMod) */
 @media (min-width: 768px) {
-  .post-entry {
+  .post-entry,
+  .first-entry {
     display: grid;
     grid-template-columns: 180px 1fr;
     column-gap: var(--gap);
     align-items: start;
   }
 
-  .post-entry .entry-cover {
+  .post-entry .entry-cover,
+  .first-entry .entry-cover {
     margin: 0; /* remove top/bottom gap when aligned left */
   }
 
-  .post-entry .entry-cover img {
+  .post-entry .entry-cover img,
+  .first-entry .entry-cover img {
     width: 180px;
     height: 112px; /* 16:10-ish */
     object-fit: cover;
@@ -19,7 +22,10 @@
 
   .post-entry .entry-header,
   .post-entry .entry-content,
-  .post-entry .entry-footer {
+  .post-entry .entry-footer,
+  .first-entry .entry-header,
+  .first-entry .entry-content,
+  .first-entry .entry-footer {
     grid-column: 2;
   }
 }
