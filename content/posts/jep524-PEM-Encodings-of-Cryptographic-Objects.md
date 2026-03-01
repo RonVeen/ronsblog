@@ -8,8 +8,6 @@ cover:
   alt: "PEM Encodings of Cryptographic Objects"
 ---
 
-![Final](/images/jep524-PEM-Encodings-of-Cryptographic-Objects-.png)
-
 If you have ever had to read a private key or a certificate from a file in Java, you know the pain. 
 You probably wrote a utility method that manually stripped out the -----BEGIN... header, removed newlines, and performed a Base64 decode, only to feed it into a KeyFactory. 
 It felt like hacky string manipulation for something that should be standard.

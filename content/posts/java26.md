@@ -8,8 +8,6 @@ cover:
   alt: "Java 26 overview"
 ---
 
-![Final](/images/java26.png)
-
 We've only just seen the release of Java 25, the latest LTS version of the popular language.
 But on March, 21st, the next iteration of the Java language, Java 26, will be launched.
 
@@ -57,5 +55,4 @@ This API allows developers to express complex vector computations that compile t
 
 **JEP 530: Primitive Types in Patterns, instanceof, and switch (Fourth Preview)**
 This feature removes restrictions on using primitive types in pattern matching, `switch`, and `instanceof`, enabling checks like `i instanceof byte` for safe casting. The fourth preview enhances dominance checks to catch more unreachable code errors and refines the definition of unconditional exactness.
-
 

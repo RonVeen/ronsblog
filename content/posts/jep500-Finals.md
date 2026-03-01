@@ -8,8 +8,6 @@ cover:
   alt: "JEP 500 Final Means Final"
 ---
 
-![Final](/images/jep500-Finals.jpg)
-
 When you have been writing Java for a while, you may have noticed that you are writing `final` a lot.
 You typically use it when defining class or instance variables. In those situations the compiler will ensure that you assigned a value to it before the class constructor completes.
 Or you could use it with parameters to indicate that the values of these parameters should not be tinkered with.
