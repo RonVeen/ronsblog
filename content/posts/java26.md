@@ -3,6 +3,9 @@ title: "Java 26"
 date: 2026-01-22
 draft: false
 tags: ["Java", "Java 26"]
+cover:
+  image: "/images/java26.png"
+  alt: "Java 26 overview"
 ---
 
 ![Final](/images/java26.png)
@@ -32,12 +35,15 @@ This enhancement allows the Project Leyden AOT cache to support all garbage coll
 <br>
 
 [JEP 517: HTTP/3 for the HTTP Client API](/posts/jep517-http3-for-the-http-client-api/)
+
 This update enables the `java.net.http.HttpClient` to support HTTP/3, utilizing QUIC over UDP for improved performance in packet-loss environments.
 
 [JEP 522: G1 GC: Improve Throughput by Reducing Synchronization](/posts/jep522-G1-improve-througput-by-reducing-synchronization/)
+
 This performance improvement for the G1 garbage collector introduces a second "card table" to track heap modifications. This allows application threads and GC optimizer threads to update separate tables, eliminating synchronization locks and simplifying write barriers. The result is a 5–15% throughput increase for applications with heavy reference updates.
 
-**JEP 524: PEM Encodings of Cryptographic Objects (Second Preview)**
+[JEP 524: PEM Encodings of Cryptographic Objects (Second Preview)](/posts/jep524-pem-encodings-of-cryptographic-objects/)
+
 This preview feature provides a standardized API (`PEMEncoder` and `PEMDecoder`) to convert cryptographic keys and certificates to and from the PEM textual format. This second preview adds support for encrypting and decrypting `KeyPair` and `PKCS8EncodedKeySpec` objects, simplifying code that previously required manual Base64 parsing.
 
 **JEP 525: Structured Concurrency (Sixth Preview)**
@@ -51,6 +57,5 @@ This API allows developers to express complex vector computations that compile t
 
 **JEP 530: Primitive Types in Patterns, instanceof, and switch (Fourth Preview)**
 This feature removes restrictions on using primitive types in pattern matching, `switch`, and `instanceof`, enabling checks like `i instanceof byte` for safe casting. The fourth preview enhances dominance checks to catch more unreachable code errors and refines the definition of unconditional exactness.
-
 
 

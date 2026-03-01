@@ -3,6 +3,9 @@ title: "Java 26 - part 2: JEP 504 Remove the Applet API"
 date: 2026-01-17
 draft: false
 tags: ["Java", "JEP", "Java 26", "Applet"]
+cover:
+  image: "/images/jep504-remove-the-applet-API.png"
+  alt: "Removal of the Applet API"
 ---
 
 ![Final](/images/jep504-remove-the-applet-API.png)

@@ -3,6 +3,9 @@ title: "Java 26 - part 5: JEP-522 Turbocharging G1 with 'Double Buffering'"
 date: 2026-02-02
 draft: false
 tags: ["Java", "JEP", "Java 26", "G1", "Garbage Collection"]
+cover:
+  image: "/images/jep522-g1-gc-improved-througput.png"
+  alt: "G1 GC Double Buffering Throughput Improvements"
 ---
 
 ![Final](/images/jep522-g1-gc-improved-througput.png)

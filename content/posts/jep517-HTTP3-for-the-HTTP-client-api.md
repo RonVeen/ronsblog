@@ -3,6 +3,9 @@ title: "Java 26 - part 4: JEP 517 HTTP/3 is Finally Here (Natively)!"
 date: 2026-01-29
 draft: false
 tags: ["Java", "JEP", "Java 26", "HTTP-Client", "HTTP/3"]
+cover:
+  image: "/images/jep516-HTTP3-for-the-HTTP-Client-API.png"
+  alt: "HTTP/3 support in Java HttpClient"
 ---
 
 ![Final](/images/jep516-HTTP3-for-the-HTTP-Client-API.png)

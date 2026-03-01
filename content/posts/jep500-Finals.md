@@ -3,6 +3,9 @@ title: "Java 26 - part 1: JEP 500 Prepare Final Mean Final"
 date: 2025-12-29
 draft: false
 tags: ["Java", "JEP", "Java 26"]
+cover:
+  image: "/images/jep500-Finals.jpg"
+  alt: "JEP 500 Final Means Final"
 ---
 
 ![Final](/images/jep500-Finals.jpg)
