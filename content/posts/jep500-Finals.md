@@ -6,6 +6,7 @@ tags: ["Java", "JEP", "Java 26"]
 cover:
   image: "/images/jep500-Finals.jpg"
   alt: "JEP 500 Final Means Final"
+series: ["Java 26"]
 ---
 
 ![Final](/images/jep500-Finals.jpg)

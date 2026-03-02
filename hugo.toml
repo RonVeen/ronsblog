@@ -6,8 +6,13 @@ theme = 'PaperMod'
 [params]
     showCodeCopyButtons = true # Allows readers to copy your Java code easily
     disableSpecial1stPost = true # Make first list item same as others (shows thumbnail)
+    ShowPostNavLinks = true      # show next/prev post links
+    ShowBreadCrumbs = true       # show breadcrumbs on posts
+
+[taxonomies]
+  series = "series"
     # Set to true to replace list summary with reading time (e.g., "3 min read")
-    # listReplaceSummaryWithReadingTime = true
+    listReplaceSummaryWithReadingTime = true
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
@@ -18,6 +23,11 @@ theme = 'PaperMod'
     name = "Articles"
     url = "/posts/"
     weight = 10
+  [[menu.main]]
+    identifier = "series"
+    name = "Series"
+    url = "/series/"
+    weight = 12
   [[menu.main]]
     identifier = "shorts"
     name = "Shorts"

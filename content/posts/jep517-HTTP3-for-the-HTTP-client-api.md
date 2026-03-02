@@ -6,6 +6,7 @@ tags: ["Java", "JEP", "Java 26", "HTTP-Client", "HTTP/3"]
 cover:
   image: "/images/jep516-HTTP3-for-the-HTTP-Client-API.png"
   alt: "HTTP/3 support in Java HttpClient"
+series: ["Java 26"]
 ---
 
 ![Final](/images/jep516-HTTP3-for-the-HTTP-Client-API.png)
