@@ -1,33 +1,42 @@
 /* Compact thumbnails for list cards (PaperMod) */
 @media (min-width: 768px) {
+  /* Grid keeps image left; title, summary, meta stack on the right */
   .post-entry,
   .first-entry {
     display: grid;
-    grid-template-columns: 180px 1fr;
+    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
     column-gap: var(--gap);
+    row-gap: 6px;
     align-items: start;
   }
 
   .post-entry .entry-cover,
   .first-entry .entry-cover {
-    margin: 0; /* remove top/bottom gap when aligned left */
+    margin: 0;
+    grid-column: 1;
+    grid-row: 1 / span 3; /* image spans rows to avoid big whitespace */
   }
 
   .post-entry .entry-cover img,
   .first-entry .entry-cover img {
-    width: 180px;
-    height: 112px; /* 16:10-ish */
+    width: 220px;
+    height: 132px; /* 16:9-ish */
     object-fit: cover;
   }
 
   .post-entry .entry-header,
+  .first-entry .entry-header { grid-column: 2; grid-row: 1; min-width: 0; }
+
   .post-entry .entry-content,
+  .first-entry .entry-content { grid-column: 2; grid-row: 2; min-width: 0; }
+
   .post-entry .entry-footer,
-  .first-entry .entry-header,
-  .first-entry .entry-content,
-  .first-entry .entry-footer {
-    grid-column: 2;
-  }
+  .first-entry .entry-footer { grid-column: 2; grid-row: 3; min-width: 0; }
+
+  /* Tighten title spacing */
+  .post-entry .entry-header h2,
+  .first-entry .entry-header h2 { margin: 0 0 6px 0; }
 }
 
 /* Keep default stacked layout on small screens */
