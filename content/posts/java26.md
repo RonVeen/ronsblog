@@ -9,8 +9,6 @@ cover:
 series: ["Java 26"]
 ---
 
-![Final](/images/java26.png)
-
 We've only just seen the release of Java 25, the latest LTS version of the popular language.
 But on March, 21st, the next iteration of the Java language, Java 26, will be launched.
 

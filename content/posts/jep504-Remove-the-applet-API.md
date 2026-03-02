@@ -9,9 +9,6 @@ cover:
 series: ["Java 26"]
 ---
 
-![Final](/images/jep504-remove-the-applet-API.png)
-
-
 ***
 
 **Goodbye, Applets! (For Real This Time)**

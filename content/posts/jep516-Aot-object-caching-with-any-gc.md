@@ -9,9 +9,6 @@ cover:
 series: ["Java 26"]
 ---
 
-![Final](/images/jep515-AOT-object-caching-with-any-GC.png)
-
-
 **JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)**
 
 I have become a greater fan of Project Leyden with every deliverable it produced. I admit, I was sceptical when Chief Language Architect Brian Goetz announced Project Leyden. It felt as if some answer was needed after the arrival of GraalVM and its native images, that had a blistering startup speed. But how could we ever increase the startup of the JVM? Turns out, there are quite of few possibilities.
