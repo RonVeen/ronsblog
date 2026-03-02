@@ -19,6 +19,11 @@ theme = 'PaperMod'
     url = "/posts/"
     weight = 10
   [[menu.main]]
+    identifier = "series"
+    name = "Series"
+    url = "/series/"
+    weight = 12
+  [[menu.main]]
     identifier = "shorts"
     name = "Shorts"
     url = "/shorts/"
