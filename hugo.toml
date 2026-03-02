@@ -6,6 +6,11 @@ theme = 'PaperMod'
 [params]
     showCodeCopyButtons = true # Allows readers to copy your Java code easily
     disableSpecial1stPost = true # Make first list item same as others (shows thumbnail)
+    # Set to true to replace list summary with reading time (e.g., "3 min read")
+    # listReplaceSummaryWithReadingTime = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
 
 [menu]
   [[menu.main]]
@@ -23,6 +28,11 @@ theme = 'PaperMod'
     name = "Books"
     url = "/books/"
     weight = 20
+  [[menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 25
   [[menu.main]]
     identifier = "about"
     name = "About"
