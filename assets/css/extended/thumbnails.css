@@ -1,9 +1,11 @@
 /* Compact thumbnails for list cards (PaperMod) */
 @media (min-width: 768px) {
+  /* Use grid so image sits left and text (header + summary + meta) stacks on the right */
   .post-entry,
   .first-entry {
     display: grid;
     grid-template-columns: 180px 1fr;
+    grid-template-rows: auto auto auto;
     column-gap: var(--gap);
     align-items: start;
   }
@@ -11,6 +13,8 @@
   .post-entry .entry-cover,
   .first-entry .entry-cover {
     margin: 0; /* remove top/bottom gap when aligned left */
+    grid-column: 1;
+    grid-row: 1 / span 3; /* make image span the three text rows */
   }
 
   .post-entry .entry-cover img,
@@ -21,13 +25,17 @@
   }
 
   .post-entry .entry-header,
+  .first-entry .entry-header { grid-column: 2; grid-row: 1; }
+
   .post-entry .entry-content,
+  .first-entry .entry-content { grid-column: 2; grid-row: 2; margin-top: 4px; }
+
   .post-entry .entry-footer,
-  .first-entry .entry-header,
-  .first-entry .entry-content,
-  .first-entry .entry-footer {
-    grid-column: 2;
-  }
+  .first-entry .entry-footer { grid-column: 2; grid-row: 3; }
+
+  /* Tighten spacing so summary sits closer to the title */
+  .post-entry .entry-header h2,
+  .first-entry .entry-header h2 { margin: 0 0 6px 0; }
 }
 
 /* Keep default stacked layout on small screens */

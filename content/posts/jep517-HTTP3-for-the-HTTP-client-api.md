@@ -8,9 +8,6 @@ cover:
   alt: "HTTP/3 support in Java HttpClient"
 ---
 
-![Final](/images/jep516-HTTP3-for-the-HTTP-Client-API.png)
-
-
 If you’ve been waiting for Java to catch up with the modern web, the wait is over. Java 26 updates the `java.net.http.HttpClient` (the one we’ve loved since JDK 11) to officially support **HTTP/3**.
 
 Here is an example of how to use the API

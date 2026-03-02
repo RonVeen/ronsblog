@@ -6,6 +6,8 @@ theme = 'PaperMod'
 [params]
     showCodeCopyButtons = true # Allows readers to copy your Java code easily
     disableSpecial1stPost = true # Make first list item same as others (shows thumbnail)
+    # When true, replaces list summary with reading time (e.g., "3 min read")
+    # listReplaceSummaryWithReadingTime = true
 
 [menu]
   [[menu.main]]
