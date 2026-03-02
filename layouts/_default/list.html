@@ -73,10 +73,17 @@
       {{- end }}
     </h2>
   </header>
+  {{- $replaceSummary := (site.Params.listReplaceSummaryWithReadingTime | default false) }}
   {{- if (ne (.Param "hideSummary") true) }}
-  <div class="entry-content">
-    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
-  </div>
+    {{- if $replaceSummary }}
+    <div class="entry-content">
+      <p>{{ i18n "read_time" .ReadingTime | default (printf "%d min read" .ReadingTime) }}</p>
+    </div>
+    {{- else }}
+    <div class="entry-content">
+      <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+    </div>
+    {{- end }}
   {{- end }}
   {{- if not (.Param "hideMeta") }}
   <footer class="entry-footer">
