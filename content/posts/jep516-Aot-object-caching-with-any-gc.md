@@ -6,6 +6,7 @@ tags: ["Java", "JEP", "Java 26", "AOT", "Project Leyden"]
 cover:
   image: "/images/jep515-AOT-object-caching-with-any-GC.png"
   alt: "AOT object caching with any GC"
+series: ["Java 26"]
 ---
 
 ![Final](/images/jep515-AOT-object-caching-with-any-GC.png)

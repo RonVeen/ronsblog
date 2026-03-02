@@ -6,6 +6,7 @@ tags: ["Java", "JEP", "Java 26", "Cryptography"]
 cover:
   image: "/images/jep524-PEM-Encodings-of-Cryptographic-Objects-.png"
   alt: "PEM Encodings of Cryptographic Objects"
+series: ["Java 26"]
 ---
 
 ![Final](/images/jep524-PEM-Encodings-of-Cryptographic-Objects-.png)

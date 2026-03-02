@@ -6,6 +6,7 @@ tags: ["Java", "Java 26"]
 cover:
   image: "/images/java26.png"
   alt: "Java 26 overview"
+series: ["Java 26"]
 ---
 
 ![Final](/images/java26.png)
@@ -57,5 +58,4 @@ This API allows developers to express complex vector computations that compile t
 
 **JEP 530: Primitive Types in Patterns, instanceof, and switch (Fourth Preview)**
 This feature removes restrictions on using primitive types in pattern matching, `switch`, and `instanceof`, enabling checks like `i instanceof byte` for safe casting. The fourth preview enhances dominance checks to catch more unreachable code errors and refines the definition of unconditional exactness.
-
 

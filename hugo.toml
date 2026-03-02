@@ -6,6 +6,11 @@ theme = 'PaperMod'
 [params]
     showCodeCopyButtons = true # Allows readers to copy your Java code easily
     disableSpecial1stPost = true # Make first list item same as others (shows thumbnail)
+    ShowPostNavLinks = true      # show next/prev post links
+    ShowBreadCrumbs = true       # show breadcrumbs on posts
+
+[taxonomies]
+  series = "series"
 
 [menu]
   [[menu.main]]
