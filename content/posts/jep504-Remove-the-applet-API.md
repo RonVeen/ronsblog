@@ -6,10 +6,8 @@ tags: ["Java", "JEP", "Java 26", "Applet"]
 cover:
   image: "/images/jep504-remove-the-applet-API.png"
   alt: "Removal of the Applet API"
+series: ["Java 26"]
 ---
-
-![Final](/images/jep504-remove-the-applet-API.png)
-
 
 ***
 

@@ -6,9 +6,8 @@ tags: ["Java", "JEP", "Java 26", "G1", "Garbage Collection"]
 cover:
   image: "/images/jep522-g1-gc-improved-througput.png"
   alt: "G1 GC Double Buffering Throughput Improvements"
+series: ["Java 26"]
 ---
-
-![Final](/images/jep522-g1-gc-improved-througput.png)
 
 If you run Java in production, you are likely using the G1 ("Garbage First") Garbage Collector (it's the default, after all). 
 In Java 26, G1 is getting a significant "free" performance boost—estimated at **5–15% better throughput**—without you changing a single line of code.

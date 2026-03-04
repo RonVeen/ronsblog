@@ -6,9 +6,8 @@ tags: ["Java", "JEP", "Java 26"]
 cover:
   image: "/images/jep500-Finals.jpg"
   alt: "JEP 500 Final Means Final"
+series: ["Java 26"]
 ---
-
-![Final](/images/jep500-Finals.jpg)
 
 When you have been writing Java for a while, you may have noticed that you are writing `final` a lot.
 You typically use it when defining class or instance variables. In those situations the compiler will ensure that you assigned a value to it before the class constructor completes.
