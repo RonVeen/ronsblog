@@ -1,0 +1,17 @@
+/* About page avatar: top-left with text wrapping */
+.post-single .about-avatar {
+  float: left;
+  width: 140px;
+  height: auto;
+  border-radius: var(--radius);
+  margin: 0 16px 8px 0;
+}
+
+@media (max-width: 600px) {
+  .post-single .about-avatar {
+    float: none;
+    display: block;
+    margin: 0 auto var(--gap) auto;
+  }
+}
+

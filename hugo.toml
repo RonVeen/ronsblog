@@ -50,6 +50,11 @@ theme = 'PaperMod'
     weight = 30
 
 [markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.parser]
+      attribute = true
   [markup.highlight]
     noClasses = false
     codeFences = true
