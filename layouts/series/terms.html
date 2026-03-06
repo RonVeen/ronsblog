@@ -13,7 +13,8 @@
     {{- $name := .Name -}}
     {{- $count := .Count -}}
     {{- $termPage := site.GetPage (printf "/%s/%s" $type $name) -}}
-    {{- $posts := where site.RegularPages "Params.series" "intersect" (slice $name) | sort "Params.series_order" "asc" -}}
+    {{- $seriesPages := where site.RegularPages "Params.series" "intersect" (slice $name) -}}
+    {{- $posts := sort $seriesPages "Params.series_order" "asc" -}}
     {{- $first := index $posts 0 -}}
     {{- $thumb := "" -}}
     {{- with $termPage.Params.cover.image -}}
@@ -40,4 +41,3 @@
 </div>
 
 {{- end -}}
-
