@@ -1,12 +1,13 @@
 ---
 title: "Java 26 - part 9: JEP 529 - Vector API"
-date: 2026-03-06
+date: 2026-03-05
 draft: false
-tags: ["Java", "JEP", "Java 26"]
+tags: ["Java", "JEP", "Java 26", "Vector API"]
 cover:
   image: "/images/jep529-vector-api.png"
   alt: "Vector API"
 series: ["Java 26"]
+series_order: 10
 ---
 
 **Java’s Vector API: The Marathon Continues (JEP 529)**  

@@ -7,6 +7,7 @@ cover:
   image: "/images/jep524-PEM-Encodings-of-Cryptographic-Objects-.png"
   alt: "PEM Encodings of Cryptographic Objects"
 series: ["Java 26"]
+series_order: 7
 ---
 
 If you have ever had to read a private key or a certificate from a file in Java, you know the pain. 

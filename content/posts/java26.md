@@ -7,6 +7,7 @@ cover:
   image: "/images/java26.png"
   alt: "Java 26 overview"
 series: ["Java 26"]
+series_order: 1
 ---
 
 We've only just seen the release of Java 25, the latest LTS version of the popular language.
@@ -63,4 +64,3 @@ It remains in incubation without substantial changes, waiting for Project Valhal
 [JEP 530: Primitive Types in Patterns, instanceof, and switch (Fourth Preview)](/posts/jep530-Pattern-matching-for-primitives/)
 This feature removes restrictions on using primitive types in pattern matching, `switch`, and `instanceof`, enabling checks like `i instanceof byte` for safe casting. 
 The fourth preview enhances dominance checks to catch more unreachable code errors and refines the definition of unconditional exactness.
-

@@ -7,6 +7,7 @@ cover:
   image: "/images/jep504-remove-the-applet-API.png"
   alt: "Removal of the Applet API"
 series: ["Java 26"]
+series_order: 3
 ---
 
 ***

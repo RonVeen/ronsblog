@@ -7,6 +7,7 @@ cover:
   image: "/images/jep500-Finals.jpg"
   alt: "JEP 500 Final Means Final"
 series: ["Java 26"]
+series_order: 2
 ---
 
 When you have been writing Java for a while, you may have noticed that you are writing `final` a lot.

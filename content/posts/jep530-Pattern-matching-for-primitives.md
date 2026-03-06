@@ -7,6 +7,7 @@ cover:
   image: "/images/jep530-primitive-pattern-matching.png"
   alt: "Pattern Matching for primitives"
 series: ["Java 26"]
+series_order: 11
 ---
 
 **Java Pattern Matching: The Missing Piece (JEP 530)**

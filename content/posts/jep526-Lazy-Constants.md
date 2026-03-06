@@ -7,6 +7,7 @@ cover:
   image: "/images/jep526-lazy-constants.png"
   alt: "Lazy Constants"
 series: ["Java 26"]
+series_order: 9
 ---
 
 **Bye-Bye Boilerplate: Say Hello to Java’s New "Lazy Constants"**

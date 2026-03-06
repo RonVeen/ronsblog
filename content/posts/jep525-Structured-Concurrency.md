@@ -7,6 +7,7 @@ cover:
   image: "/images/jep525-structured-concurreny.png"
   alt: "Structured Concurrency"
 series: ["Java 26"]
+series_order: 8
 ---
 
 **The "No More Thread Leaks" Update: Java’s Structured Concurrency (JEP 525)**

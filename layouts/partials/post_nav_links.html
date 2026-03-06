@@ -1,0 +1,55 @@
+{{/* Series-aware prev/next navigation. Falls back to default order if no series. */}}
+{{- $series := .Params.series -}}
+{{- if and $series (ge (len $series) 1) -}}
+  {{- $seriesPages := where site.RegularPages "Params.series" "intersect" $series -}}
+  {{- $seriesPages = sort $seriesPages "Params.series_order" "asc" -}}
+  {{- $cur := . -}}
+  {{- $idx := -1 -}}
+  {{- range $i, $p := $seriesPages -}}
+    {{- if eq $p.Permalink $cur.Permalink -}}
+      {{- $idx = $i -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if ge $idx 0 -}}
+  <nav class="paginav">
+    {{- if ge $idx 1 -}}
+      {{- $prev := index $seriesPages (sub $idx 1) -}}
+      <a class="prev" href="{{ $prev.Permalink }}">
+        <span class="title">« {{ i18n "prev_page" }}</span>
+        <br>
+        <span>{{- $prev.Title -}}</span>
+      </a>
+    {{- end -}}
+    {{- if lt (add $idx 1) (len $seriesPages) -}}
+      {{- $next := index $seriesPages (add $idx 1) -}}
+      <a class="next" href="{{ $next.Permalink }}">
+        <span class="title">{{ i18n "next_page" }} »</span>
+        <br>
+        <span>{{- $next.Title -}}</span>
+      </a>
+    {{- end -}}
+  </nav>
+  {{- end -}}
+{{- else -}}
+  {{- /* Fallback to theme default behavior */ -}}
+  {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+  {{- if and (gt (len $pages) 1) (in $pages . ) }}
+  <nav class="paginav">
+    {{- with $pages.Next . }}
+    <a class="prev" href="{{ .Permalink }}">
+      <span class="title">« {{ i18n "prev_page" }}</span>
+      <br>
+      <span>{{- .Name -}}</span>
+    </a>
+    {{- end }}
+    {{- with $pages.Prev . }}
+    <a class="next" href="{{ .Permalink }}">
+      <span class="title">{{ i18n "next_page" }} »</span>
+      <br>
+      <span>{{- .Name -}}</span>
+    </a>
+    {{- end }}
+  </nav>
+  {{- end }}
+{{- end -}}
+

@@ -44,6 +44,11 @@
 {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
 {{- end }}
 
+{{- /* Sort series term pages by explicit order */}}
+{{- if and (eq .Kind "term") (eq (lower .Data.Singular) "series") }}
+  {{- $pages = sort $pages "Params.series_order" "asc" }}
+{{- end }}
+
 {{- $paginator := .Paginate $pages }}
 
 {{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
