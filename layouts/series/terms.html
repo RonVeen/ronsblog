@@ -1,0 +1,43 @@
+{{- define "main" -}}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . | markdownify }}</div>
+  {{- end }}
+</header>
+
+<div class="series-list">
+  {{- $type := .Type -}}
+  {{- range .Data.Terms.Alphabetical -}}
+    {{- $name := .Name -}}
+    {{- $count := .Count -}}
+    {{- $termPage := site.GetPage (printf "/%s/%s" $type $name) -}}
+    {{- $seriesPages := where site.RegularPages "Params.series" "intersect" (slice $name) -}}
+    {{- $posts := sort $seriesPages "Params.series_order" "asc" -}}
+    {{- $first := index $posts 0 -}}
+    {{- $thumb := "" -}}
+    {{- with $termPage.Params.cover.image -}}
+      {{- $thumb = . | absURL -}}
+    {{- else -}}
+      {{- with $first.Params.cover.image -}}
+        {{- $thumb = . | absURL -}}
+      {{- end -}}
+    {{- end -}}
+
+    <a class="series-row" href="{{ $termPage.Permalink }}">
+      {{- if $thumb }}
+      <img class="series-thumb" src="{{ $thumb }}" alt="{{ $name }} thumbnail">
+      {{- end }}
+      <div class="series-info">
+        <h2 class="series-title">{{ $termPage.Title }}</h2>
+        {{- with $termPage.Params.description }}
+        <p class="series-desc">{{ . }}</p>
+        {{- end }}
+        <div class="series-meta">{{ $count }} {{ cond (eq $count 1) "post" "posts" }}</div>
+      </div>
+    </a>
+  {{- end -}}
+</div>
+
+{{- end -}}
