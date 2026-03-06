@@ -56,10 +56,11 @@
 {{- end }}
 
 {{- $term := .Data.Term }}
+{{- $isSeriesTerm := and (eq $.Kind "term") (eq (lower $.Data.Singular) "series") }}
 {{- range $index, $page := $paginator.Pages }}
 
 {{- $class := "post-entry" }}
-{{- if $term }}
+{{- if and $term (not $isSeriesTerm) }}
 {{- $class = "post-entry tag-entry" }}
 {{- end }}
 
