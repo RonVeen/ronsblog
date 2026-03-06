@@ -56,7 +56,7 @@ This sixth preview updates the `Joiner` interface to return lists of results rat
 Renamed from "Stable Values," this feature allows variables to be initialized lazily via a computing function while being treated as true constants by the JVM for optimization purposes. 
 Changes in this preview include removing low-level methods, disallowing `null` values, and adding `List.ofLazy` and `Map.ofLazy` factories.
 
-**JEP 529: Vector API (Eleventh Incubator)**
+[JEP 529: Vector API (Eleventh Incubator)](/posts/jep529-Vector-API/)
 This API allows developers to express complex vector computations that compile to efficient SIMD hardware instructions at runtime. 
 It remains in incubation without substantial changes, waiting for Project Valhalla's value classes to become available for future integration.
 
