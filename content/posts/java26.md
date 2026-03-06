@@ -60,7 +60,7 @@ Changes in this preview include removing low-level methods, disallowing `null` v
 This API allows developers to express complex vector computations that compile to efficient SIMD hardware instructions at runtime. 
 It remains in incubation without substantial changes, waiting for Project Valhalla's value classes to become available for future integration.
 
-**JEP 530: Primitive Types in Patterns, instanceof, and switch (Fourth Preview)**
+[JEP 530: Primitive Types in Patterns, instanceof, and switch (Fourth Preview)](/posts/jep530-Pattern-matching-for-primitives/)
 This feature removes restrictions on using primitive types in pattern matching, `switch`, and `instanceof`, enabling checks like `i instanceof byte` for safe casting. 
 The fourth preview enhances dominance checks to catch more unreachable code errors and refines the definition of unconditional exactness.
 
