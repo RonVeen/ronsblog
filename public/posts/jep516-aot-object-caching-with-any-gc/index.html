@@ -5,14 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>JEP 516: Ahead-Of-Time Object caching with any GC | Ron&#39;s Tech Blog</title>
+<title>Java 26 - part 3: JEP 516 Ahead-Of-Time Object caching with any GC | Ron&#39;s Tech Blog</title>
 <meta name="keywords" content="Java, JEP, Java 26, AOT, Project Leyden">
-<meta name="description" content="
-JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)
+<meta name="description" content="JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)
 I have become a greater fan of Project Leyden with every deliverable it produced. I admit, I was sceptical when Chief Language Architect Brian Goetz announced Project Leyden. It felt as if some answer was needed after the arrival of GraalVM and its native images, that had a blistering startup speed. But how could we ever increase the startup of the JVM? Turns out, there are quite of few possibilities.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/posts/jep516-aot-object-caching-with-any-gc/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.343cc480b9ffc8f04ccbe5e968ad674880cab773ec19905e93033065c1e7a804.css" integrity="sha256-NDzEgLn/yPBMy&#43;XpaK1nSIDKt3PsGZBekwMwZcHnqAQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.917ada2cbb8e98a338632283db8311c24680bc8206da073764d61a81e4527508.css" integrity="sha256-kXraLLuOmKM4YyKD24MRwkaAvIIG2gc3ZNYageRSdQg=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -109,6 +108,11 @@ I have become a greater fan of Project Leyden with every deliverable it produced
                 </a>
             </li>
             <li>
+                <a href="http://localhost:1313/series/" title="Series">
+                    <span>Series</span>
+                </a>
+            </li>
+            <li>
                 <a href="http://localhost:1313/shorts/" title="Shorts">
                     <span>Shorts</span>
                 </a>
@@ -116,6 +120,16 @@ I have become a greater fan of Project Leyden with every deliverable it produced
             <li>
                 <a href="http://localhost:1313/books/" title="Books">
                     <span>Books</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/conferences/" title="Conferences">
+                    <span>Conferences</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
                 </a>
             </li>
             <li>
@@ -130,16 +144,19 @@ I have become a greater fan of Project Leyden with every deliverable it produced
 
 <article class="post-single">
   <header class="post-header">
-    
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
     <h1 class="post-title entry-hint-parent">
-      JEP 516: Ahead-Of-Time Object caching with any GC
+      Java 26 - part 3: JEP 516 Ahead-Of-Time Object caching with any GC
     </h1>
     <div class="post-meta"><span title='2026-01-20 00:00:00 +0000 UTC'>January 20, 2026</span>
 
 </div>
   </header> 
-  <div class="post-content"><p><img alt="Final" loading="lazy" src="/images/jep515-AOT-object-caching-with-any-GC.png"></p>
-<p><strong>JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)</strong></p>
+<figure class="entry-cover">
+        <img loading="eager" src="http://localhost:1313/images/jep515-AOT-object-caching-with-any-GC.png" alt="AOT object caching with any GC">
+        
+</figure>
+  <div class="post-content"><p><strong>JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)</strong></p>
 <p>I have become a greater fan of Project Leyden with every deliverable it produced. I admit, I was sceptical when Chief Language Architect Brian Goetz announced Project Leyden. It felt as if some answer was needed after the arrival of GraalVM and its native images, that had a blistering startup speed. But how could we ever increase the startup of the JVM? Turns out, there are quite of few possibilities.</p>
 <p>JEP 483, Ahead-of-Time classloading &amp; linking was the foundational JEP  that lay much of the groundwork that was required. It enables the JVM to take a snapshot of loaded and linked classes during a so-called training run and store this information in a cache. This cache is then used when the application is ran in production, allowing it to skip the class loading and linking part, but using the information in the cache instead. It significantly improves start-up times.
 Later JEPs introduced simplified launch methods and the possibility to preserve method execution profiles across runs, allowing the JVM to &ldquo;learn&rdquo; the application behavior to improve startup performance.</p>
@@ -168,12 +185,15 @@ JEP 516 introduces a <strong>&ldquo;GC-agnostic&rdquo;</strong> cache format. In
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/java/">Java</a></li>
-      <li><a href="http://localhost:1313/tags/jep/">JEP</a></li>
-      <li><a href="http://localhost:1313/tags/java-26/">Java 26</a></li>
-      <li><a href="http://localhost:1313/tags/aot/">AOT</a></li>
-      <li><a href="http://localhost:1313/tags/project-leyden/">Project Leyden</a></li>
-    </ul>
+    </ul><nav class="paginav"><a class="prev" href="http://localhost:1313/posts/jep504-remove-the-applet-api/">
+        <span class="title">« Prev</span>
+        <br>
+        <span>Java 26 - part 2: JEP 504 Remove the Applet API</span>
+      </a><a class="next" href="http://localhost:1313/posts/jep517-http3-for-the-http-client-api/">
+        <span class="title">Next »</span>
+        <br>
+        <span>Java 26 - part 4: JEP 517 HTTP/3 is Finally Here (Natively)!</span>
+      </a></nav>
   </footer>
 </article>
     </main>

@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.343cc480b9ffc8f04ccbe5e968ad674880cab773ec19905e93033065c1e7a804.css" integrity="sha256-NDzEgLn/yPBMy&#43;XpaK1nSIDKt3PsGZBekwMwZcHnqAQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.917ada2cbb8e98a338632283db8311c24680bc8206da073764d61a81e4527508.css" integrity="sha256-kXraLLuOmKM4YyKD24MRwkaAvIIG2gc3ZNYageRSdQg=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -20,6 +20,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="http://localhost:1313/index.xml" title="rss">
+<link rel="alternate" type="application/json" href="http://localhost:1313/index.json" title="json">
 <link rel="alternate" hreflang="en" href="http://localhost:1313/">
 <noscript>
     <style>
@@ -109,6 +110,11 @@
                 </a>
             </li>
             <li>
+                <a href="http://localhost:1313/series/" title="Series">
+                    <span>Series</span>
+                </a>
+            </li>
+            <li>
                 <a href="http://localhost:1313/shorts/" title="Shorts">
                     <span>Shorts</span>
                 </a>
@@ -119,6 +125,16 @@
                 </a>
             </li>
             <li>
+                <a href="http://localhost:1313/conferences/" title="Conferences">
+                    <span>Conferences</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
                 <a href="http://localhost:1313/about/" title="About">
                     <span>About</span>
                 </a>
@@ -126,83 +142,184 @@
         </ul>
     </nav>
 </header>
-<main class="main"> 
+<main class="main">
 
-<article class="first-entry"> 
+<article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/jep530-primitive-pattern-matching.png" alt="Pattern Matching for primitives">
+</figure>
   <header class="entry-header">
-    <h2 class="entry-hint-parent">JEP 517: HTTP/3 is Finally Here (Natively)!
+    <h2 class="entry-hint-parent">Java 26 - part 10: JEP 530 - Pattern matching for primitives
     </h2>
   </header>
-  <div class="entry-content">
-    <p>
-If you’ve been waiting for Java to catch up with the modern web, the wait is over. Java 26 updates the java.net.http.HttpClient (the one we’ve loved since JDK 11) to officially support HTTP/3.
+    <div class="entry-content">
+      <p>Java Pattern Matching: The Missing Piece (JEP 530) If you’ve been following Java for the last few years, you know the language has been on a massive “glow-up” journey. One of the stars of the show has been Pattern Matching. It started as a way to stop writing those annoying casts after an instanceof, and it’s grown into a powerful tool for data-driven code.
+But there was always one weird restriction: it only worked for objects. If you wanted to use these cool new tricks with int, double, or boolean, you were out of luck.
+...</p>
+    </div>
+  <footer class="entry-footer"><span title='2026-03-06 00:00:00 +0000 UTC'>March 6, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Java 26 - part 10: JEP 530 - Pattern matching for primitives" href="http://localhost:1313/posts/jep530-pattern-matching-for-primitives/"></a>
+</article>
+
+<article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/jep529-vector-api.png" alt="Vector API">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java 26 - part 9: JEP 529 - Vector API
+    </h2>
+  </header>
+    <div class="entry-content">
+      <p>Java’s Vector API: The Marathon Continues (JEP 529)
+The Vector API is a new addition to the Java standard library that allows you to perform vector operations on arrays in a single CPU cycle. If there were a Guinness World Record for the “Longest Incubating Feature in Java History,” the Vector API would be holding the trophy. With the arrival of JEP 529, the Vector API is entering its 11th round of incubation in JDK 26.
+...</p>
+    </div>
+  <footer class="entry-footer"><span title='2026-03-05 00:00:00 +0000 UTC'>March 5, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Java 26 - part 9: JEP 529 - Vector API" href="http://localhost:1313/posts/jep529-vector-api/"></a>
+</article>
+
+<article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/jep526-lazy-constants.png" alt="Lazy Constants">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java 26 - part 8: JEP 526 - Lazy Constants
+    </h2>
+  </header>
+    <div class="entry-content">
+      <p>Bye-Bye Boilerplate: Say Hello to Java’s New “Lazy Constants” If you’ve ever had to initialize a heavy object only when it’s actually needed, you know the drill. You probably reached for the “Double-Checked Locking” pattern (which is easy to mess up) or the “Initialization-on-demand Holder” idiom (which is verbose).
+JEP 526 (Lazy Constants), coming as a second preview in JDK 26, is here to retire those old hacks. It introduces a first-class way to handle deferred initialization that is thread-safe, easy to read, and—best of all—lightning fast.
+...</p>
+    </div>
+  <footer class="entry-footer"><span title='2026-03-01 00:00:00 +0000 UTC'>March 1, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Java 26 - part 8: JEP 526 - Lazy Constants" href="http://localhost:1313/posts/jep526-lazy-constants/"></a>
+</article>
+
+<article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/jep525-structured-concurreny.png" alt="Structured Concurrency">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java 26 - part 7: JEP 525 - Structured Concurrency
+    </h2>
+  </header>
+    <div class="entry-content">
+      <p>The “No More Thread Leaks” Update: Java’s Structured Concurrency (JEP 525) If you’ve ever written concurrent Java code using ExecutorService, you know it can feel like herding cats. If one task fails, the others just keep running in the background like zombies, eating up resources and making debugging a nightmare.
+Structured Concurrency is here to fix that. It treats a group of related tasks as a single unit of work. If the main task is cancelled or fails, all its sub-tasks are automatically shut down. No leaks, no orphans, no headaches.
+...</p>
+    </div>
+  <footer class="entry-footer"><span title='2026-02-26 00:00:00 +0000 UTC'>February 26, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Java 26 - part 7: JEP 525 - Structured Concurrency" href="http://localhost:1313/posts/jep525-structured-concurrency/"></a>
+</article>
+
+<article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/jep524-PEM-Encodings-of-Cryptographic-Objects-.png" alt="PEM Encodings of Cryptographic Objects">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java 26 - part 6: JEP 524 - PEM Encodings of Cryptographic Objects
+    </h2>
+  </header>
+    <div class="entry-content">
+      <p>If you have ever had to read a private key or a certificate from a file in Java, you know the pain. You probably wrote a utility method that manually stripped out the —–BEGIN… header, removed newlines, and performed a Base64 decode, only to feed it into a KeyFactory. It felt like hacky string manipulation for something that should be standard.
+The Gist: This JEP, and its predecessor JEP 470 in Java 25, introduces a standardized, easy-to-use API for encoding and decoding PEM (Privacy-Enhanced Mail) files. Instead of using third-party libraries (like Bouncy Castle) or writing brittle string replacement code, you can now parse keys and certificates natively.
+...</p>
+    </div>
+  <footer class="entry-footer"><span title='2026-02-12 00:00:00 +0000 UTC'>February 12, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Java 26 - part 6: JEP 524 - PEM Encodings of Cryptographic Objects" href="http://localhost:1313/posts/jep524-pem-encodings-of-cryptographic-objects/"></a>
+</article>
+
+<article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/jep522-g1-gc-improved-througput.png" alt="G1 GC Double Buffering Throughput Improvements">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java 26 - part 5: JEP-522 Turbocharging G1 with &#39;Double Buffering&#39;
+    </h2>
+  </header>
+    <div class="entry-content">
+      <p>If you run Java in production, you are likely using the G1 (“Garbage First”) Garbage Collector (it’s the default, after all). In Java 26, G1 is getting a significant “free” performance boost—estimated at 5–15% better throughput—without you changing a single line of code.
+This is one of those JEPs that does its work silently in the background (literally), but it’s implications are so significant that it deserves a blog post.
+...</p>
+    </div>
+  <footer class="entry-footer"><span title='2026-02-02 00:00:00 +0000 UTC'>February 2, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to Java 26 - part 5: JEP-522 Turbocharging G1 with &#39;Double Buffering&#39;" href="http://localhost:1313/posts/jep522-g1-improve-througput-by-reducing-synchronization/"></a>
+</article>
+
+<article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/jep516-HTTP3-for-the-HTTP-Client-API.png" alt="HTTP/3 support in Java HttpClient">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Java 26 - part 4: JEP 517 HTTP/3 is Finally Here (Natively)!
+    </h2>
+  </header>
+    <div class="entry-content">
+      <p>If you’ve been waiting for Java to catch up with the modern web, the wait is over. Java 26 updates the java.net.http.HttpClient (the one we’ve loved since JDK 11) to officially support HTTP/3.
 Here is an example of how to use the API
 1 2 3 4 5 6 7 var client = HttpClient.newHttpClient(); var request = HttpRequest.newBuilder(URI.create(&#34;https://openjdk.org/&#34;)) .GET() .build(); var response = client.send(request, HttpResponse.BodyHandlers.ofString()); assert response.statusCode() == 200; String htmlText = response.body(); Why should you care? HTTP/3 isn’t just a version bump; it swaps out TCP for QUIC (built on UDP). This is a big deal for performance because it solves “head-of-line blocking”—where one lost packet holds up the entire line of data. It basically means faster handshakes and much more reliable connections, especially if your users are on flaky networks with high packet loss.
 ...</p>
-  </div>
+    </div>
   <footer class="entry-footer"><span title='2026-01-29 00:00:00 +0000 UTC'>January 29, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to JEP 517: HTTP/3 is Finally Here (Natively)!" href="http://localhost:1313/posts/jep517-http3-for-the-http-client-api/"></a>
+  <a class="entry-link" aria-label="post link to Java 26 - part 4: JEP 517 HTTP/3 is Finally Here (Natively)!" href="http://localhost:1313/posts/jep517-http3-for-the-http-client-api/"></a>
 </article>
 
 <article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/jep515-AOT-object-caching-with-any-GC.png" alt="AOT object caching with any GC">
+</figure>
   <header class="entry-header">
-    <h2 class="entry-hint-parent">Java 26
+    <h2 class="entry-hint-parent">Java 26 - part 3: JEP 516 Ahead-Of-Time Object caching with any GC
     </h2>
   </header>
-  <div class="entry-content">
-    <p>
-We’ve only just seen the release of Java 25, the latest LTS version of the popular language. But on March, 21st, the next iteration of the Java language, Java 26, will be launched.
-What is in there? Java 26 will be made up of 10 Java Enhancement Proposals. Here is a short summary. In the coming weeks, I will talk about each of these in more detail on this site.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2026-01-22 00:00:00 +0000 UTC'>January 22, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to Java 26" href="http://localhost:1313/posts/java26/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">JEP 516: Ahead-Of-Time Object caching with any GC
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>
-JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)
+    <div class="entry-content">
+      <p>JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)
 I have become a greater fan of Project Leyden with every deliverable it produced. I admit, I was sceptical when Chief Language Architect Brian Goetz announced Project Leyden. It felt as if some answer was needed after the arrival of GraalVM and its native images, that had a blistering startup speed. But how could we ever increase the startup of the JVM? Turns out, there are quite of few possibilities.
 ...</p>
-  </div>
+    </div>
   <footer class="entry-footer"><span title='2026-01-20 00:00:00 +0000 UTC'>January 20, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to JEP 516: Ahead-Of-Time Object caching with any GC" href="http://localhost:1313/posts/jep516-aot-object-caching-with-any-gc/"></a>
+  <a class="entry-link" aria-label="post link to Java 26 - part 3: JEP 516 Ahead-Of-Time Object caching with any GC" href="http://localhost:1313/posts/jep516-aot-object-caching-with-any-gc/"></a>
 </article>
 
 <article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/jep504-remove-the-applet-API.png" alt="Removal of the Applet API">
+</figure>
   <header class="entry-header">
-    <h2 class="entry-hint-parent">JEP 504: Remove the Applet API
+    <h2 class="entry-hint-parent">Java 26 - part 2: JEP 504 Remove the Applet API
     </h2>
   </header>
-  <div class="entry-content">
-    <p>
-Goodbye, Applets! (For Real This Time)
+    <div class="entry-content">
+      <p> Goodbye, Applets! (For Real This Time)
 If you’ve been doing Java for a while, you probably remember the “good old days” of running Java in the browser. One day, I was visiting London, from Amsterdam, and I bought my first Java book. This was in de the days before you buy anything at Amazon. The book introduced me to applets for the first time. Must have been around the time of Java 1.2, so we’re talking about 1998. Fast forward to a few years later and I had a girlfriend who was studying in IT. One of her assigments was to create a functioning chess application, running in a browser via an applet. Did we have fun writing that applet. Or least, I had fun. Well, those days of Applet-Chess are over, JEP 504 in Java 26 is finally cleaning house by permanently removing the Applet API.
 ...</p>
-  </div>
+    </div>
   <footer class="entry-footer"><span title='2026-01-17 00:00:00 +0000 UTC'>January 17, 2026</span></footer>
-  <a class="entry-link" aria-label="post link to JEP 504: Remove the Applet API" href="http://localhost:1313/posts/jep504-remove-the-applet-api/"></a>
+  <a class="entry-link" aria-label="post link to Java 26 - part 2: JEP 504 Remove the Applet API" href="http://localhost:1313/posts/jep504-remove-the-applet-api/"></a>
 </article>
 
 <article class="post-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="http://localhost:1313/images/jep500-Finals.jpg" alt="JEP 500 Final Means Final">
+</figure>
   <header class="entry-header">
-    <h2 class="entry-hint-parent">JEP 500: Prepare Final Mean Final
+    <h2 class="entry-hint-parent">Java 26 - part 1: JEP 500 Prepare Final Mean Final
     </h2>
   </header>
-  <div class="entry-content">
-    <p>
-When you have been writing Java for a while, you may have noticed that you are writing final a lot. You typically use it when defining class or instance variables. In those situations the compiler will ensure that need to assign a value before the class constructor completes. Or you could use it with parameters, to indicate that the values of these parameters should not be tinkered with.
+    <div class="entry-content">
+      <p>When you have been writing Java for a while, you may have noticed that you are writing final a lot. You typically use it when defining class or instance variables. In those situations the compiler will ensure that you assigned a value to it before the class constructor completes. Or you could use it with parameters to indicate that the values of these parameters should not be tinkered with.
 It is Java’s version of defining a constant. Or at least, that is what we have been thinking. But in real life, a final variable can be changed. Take a look at the following example:
 ...</p>
-  </div>
+    </div>
   <footer class="entry-footer"><span title='2025-12-29 00:00:00 +0000 UTC'>December 29, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to JEP 500: Prepare Final Mean Final" href="http://localhost:1313/posts/jep500-finals/"></a>
+  <a class="entry-link" aria-label="post link to Java 26 - part 1: JEP 500 Prepare Final Mean Final" href="http://localhost:1313/posts/jep500-finals/"></a>
 </article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="http://localhost:1313/page/2/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">

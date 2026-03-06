@@ -1,0 +1,7 @@
+/* Shorts section: no left thumbnail, use full width text */
+@media (min-width: 768px) {
+  /* Increase specificity and force override of .post-entry grid */
+  .post-entry.shorts-entry {
+    display: block !important;
+  }
+}

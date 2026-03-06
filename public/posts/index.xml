@@ -6,15 +6,79 @@
     <description>Recent content in Posts on Ron&#39;s Tech Blog</description>
     <generator>Hugo -- 0.153.3</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 29 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>JEP 517: HTTP/3 is Finally Here (Natively)!</title>
+      <title>Java 26 - part 10: JEP 530 - Pattern matching for primitives</title>
+      <link>http://localhost:1313/posts/jep530-pattern-matching-for-primitives/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep530-pattern-matching-for-primitives/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Java Pattern Matching: The Missing Piece (JEP 530)&lt;/strong&gt;
+If you’ve been following Java for the last few years, you know the language has been on a massive &amp;ldquo;glow-up&amp;rdquo; journey.
+One of the stars of the show has been Pattern Matching.
+It started as a way to stop writing those annoying casts after an instanceof, and it’s grown into a powerful tool for data-driven code.&lt;/p&gt;
+&lt;p&gt;But there was always one weird restriction: it only worked for objects.
+If you wanted to use these cool new tricks with int, double, or boolean, you were out of luck.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Java 26 - part 9: JEP 529 - Vector API</title>
+      <link>http://localhost:1313/posts/jep529-vector-api/</link>
+      <pubDate>Thu, 05 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep529-vector-api/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Java’s Vector API: The Marathon Continues (JEP 529)&lt;/strong&gt;&lt;br&gt;
+&lt;br&gt;
+The Vector API is a new addition to the Java standard library that allows you to perform vector operations on arrays in a single CPU cycle.
+If there were a Guinness World Record for the &amp;ldquo;Longest Incubating Feature in Java History,&amp;rdquo; the Vector API would be holding the trophy.
+With the arrival of JEP 529, the Vector API is entering its 11th round of incubation in JDK 26.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Java 26 - part 8: JEP 526 - Lazy Constants</title>
+      <link>http://localhost:1313/posts/jep526-lazy-constants/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep526-lazy-constants/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Bye-Bye Boilerplate: Say Hello to Java’s New &amp;ldquo;Lazy Constants&amp;rdquo;&lt;/strong&gt;
+If you’ve ever had to initialize a heavy object only when it’s actually needed, you know the drill.
+You probably reached for the &amp;ldquo;Double-Checked Locking&amp;rdquo; pattern (which is easy to mess up) or the &amp;ldquo;Initialization-on-demand Holder&amp;rdquo; idiom (which is verbose).&lt;/p&gt;
+&lt;p&gt;JEP 526 (Lazy Constants), coming as a second preview in JDK 26, is here to retire those old hacks.
+It introduces a first-class way to handle deferred initialization that is thread-safe, easy to read, and—best of all—lightning fast.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Java 26 - part 7: JEP 525 - Structured Concurrency</title>
+      <link>http://localhost:1313/posts/jep525-structured-concurrency/</link>
+      <pubDate>Thu, 26 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep525-structured-concurrency/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;The &amp;ldquo;No More Thread Leaks&amp;rdquo; Update: Java’s Structured Concurrency (JEP 525)&lt;/strong&gt;
+If you’ve ever written concurrent Java code using ExecutorService, you know it can feel like herding cats.
+If one task fails, the others just keep running in the background like zombies, eating up resources and making debugging a nightmare.&lt;/p&gt;
+&lt;p&gt;Structured Concurrency is here to fix that. It treats a group of related tasks as a single unit of work.
+If the main task is cancelled or fails, all its sub-tasks are automatically shut down. No leaks, no orphans, no headaches.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Java 26 - part 6: JEP 524 - PEM Encodings of Cryptographic Objects</title>
+      <link>http://localhost:1313/posts/jep524-pem-encodings-of-cryptographic-objects/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep524-pem-encodings-of-cryptographic-objects/</guid>
+      <description>&lt;p&gt;If you have ever had to read a private key or a certificate from a file in Java, you know the pain.
+You probably wrote a utility method that manually stripped out the &amp;mdash;&amp;ndash;BEGIN&amp;hellip; header, removed newlines, and performed a Base64 decode, only to feed it into a KeyFactory.
+It felt like hacky string manipulation for something that should be standard.&lt;/p&gt;
+&lt;p&gt;The Gist: This JEP, and its predecessor JEP 470 in Java 25, introduces a standardized, easy-to-use API for encoding and decoding PEM (Privacy-Enhanced Mail) files.
+Instead of using third-party libraries (like Bouncy Castle) or writing brittle string replacement code, you can now parse keys and certificates natively.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Java 26 - part 5: JEP-522 Turbocharging G1 with &#39;Double Buffering&#39;</title>
+      <link>http://localhost:1313/posts/jep522-g1-improve-througput-by-reducing-synchronization/</link>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/jep522-g1-improve-througput-by-reducing-synchronization/</guid>
+      <description>&lt;p&gt;If you run Java in production, you are likely using the G1 (&amp;ldquo;Garbage First&amp;rdquo;) Garbage Collector (it&amp;rsquo;s the default, after all).
+In Java 26, G1 is getting a significant &amp;ldquo;free&amp;rdquo; performance boost—estimated at &lt;strong&gt;5–15% better throughput&lt;/strong&gt;—without you changing a single line of code.&lt;/p&gt;
+&lt;p&gt;This is one of those JEPs that does its work silently in the background (literally), but it&amp;rsquo;s implications are so significant that it deserves a blog post.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Java 26 - part 4: JEP 517 HTTP/3 is Finally Here (Natively)!</title>
       <link>http://localhost:1313/posts/jep517-http3-for-the-http-client-api/</link>
       <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/jep517-http3-for-the-http-client-api/</guid>
-      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jep516-HTTP3-for-the-HTTP-Client-API.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;If you’ve been waiting for Java to catch up with the modern web, the wait is over. Java 26 updates the &lt;code&gt;java.net.http.HttpClient&lt;/code&gt; (the one we’ve loved since JDK 11) to officially support &lt;strong&gt;HTTP/3&lt;/strong&gt;.&lt;/p&gt;
+      <description>&lt;p&gt;If you’ve been waiting for Java to catch up with the modern web, the wait is over. Java 26 updates the &lt;code&gt;java.net.http.HttpClient&lt;/code&gt; (the one we’ve loved since JDK 11) to officially support &lt;strong&gt;HTTP/3&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Here is an example of how to use the API&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -40,49 +104,45 @@
 HTTP/3 isn&amp;rsquo;t just a version bump; it swaps out TCP for &lt;strong&gt;QUIC&lt;/strong&gt; (built on UDP). This is a big deal for performance because it solves &amp;ldquo;head-of-line blocking&amp;rdquo;—where one lost packet holds up the entire line of data. It basically means faster handshakes and much more reliable connections, especially if your users are on flaky networks with high packet loss.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Java 26</title>
-      <link>http://localhost:1313/posts/java26/</link>
-      <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/java26/</guid>
-      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/java26.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;We&amp;rsquo;ve only just seen the release of Java 25, the latest LTS version of the popular language.
-But on March, 21st, the next iteration of the Java language, Java 26, will be launched.&lt;/p&gt;
-&lt;h2 id=&#34;what-is-in-there&#34;&gt;What is in there?&lt;/h2&gt;
-&lt;p&gt;Java 26 will be made up of 10 Java Enhancement Proposals.
-Here is a short summary. In the coming weeks, I will talk about each of these in more detail on this site.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>JEP 516: Ahead-Of-Time Object caching with any GC</title>
+      <title>Java 26 - part 3: JEP 516 Ahead-Of-Time Object caching with any GC</title>
       <link>http://localhost:1313/posts/jep516-aot-object-caching-with-any-gc/</link>
       <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/jep516-aot-object-caching-with-any-gc/</guid>
-      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jep515-AOT-object-caching-with-any-GC.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)&lt;/strong&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;strong&gt;JEP 516: Having Your Cake (Fast Startup) and Eating It Too (Low Latency)&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;I have become a greater fan of Project Leyden with every deliverable it produced. I admit, I was sceptical when Chief Language Architect Brian Goetz announced Project Leyden. It felt as if some answer was needed after the arrival of GraalVM and its native images, that had a blistering startup speed. But how could we ever increase the startup of the JVM? Turns out, there are quite of few possibilities.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>JEP 504: Remove the Applet API</title>
+      <title>Java 26 - part 2: JEP 504 Remove the Applet API</title>
       <link>http://localhost:1313/posts/jep504-remove-the-applet-api/</link>
       <pubDate>Sat, 17 Jan 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/jep504-remove-the-applet-api/</guid>
-      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jep504-remove-the-applet-API.png&#34;&gt;&lt;/p&gt;
-&lt;hr&gt;
+      <description>&lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;Goodbye, Applets! (For Real This Time)&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you&amp;rsquo;ve been doing Java for a while, you probably remember the &amp;ldquo;good old days&amp;rdquo; of running Java in the browser. One day, I was visiting London, from Amsterdam, and I bought my first Java book. This was in de the days before you buy anything at Amazon. The book introduced me to applets for the first time. Must have been around the time of Java 1.2, so we&amp;rsquo;re talking about 1998. Fast forward to a few years later and I had a girlfriend who was studying in IT. One of her assigments was to create a functioning chess application, running in a browser via an applet. Did we have fun writing that applet. Or least, I had fun.
 Well, those days of Applet-Chess are over, JEP 504 in Java 26 is finally cleaning house by permanently removing the Applet API.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>JEP 500: Prepare Final Mean Final</title>
+      <title>Java 26 - part 1: JEP 500 Prepare Final Mean Final</title>
       <link>http://localhost:1313/posts/jep500-finals/</link>
       <pubDate>Mon, 29 Dec 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/jep500-finals/</guid>
-      <description>&lt;p&gt;&lt;img alt=&#34;Final&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jep500-Finals.jpg&#34;&gt;&lt;/p&gt;
-&lt;p&gt;When you have been writing Java for a while, you may have noticed that you are writing &lt;code&gt;final&lt;/code&gt; a lot.
-You typically use it when defining class or instance variables. In those situations the compiler will ensure that need to assign a value before the class constructor completes.
-Or you could use it with parameters, to indicate that the values of these parameters should not be tinkered with.&lt;/p&gt;
+      <description>&lt;p&gt;When you have been writing Java for a while, you may have noticed that you are writing &lt;code&gt;final&lt;/code&gt; a lot.
+You typically use it when defining class or instance variables. In those situations the compiler will ensure that you assigned a value to it before the class constructor completes.
+Or you could use it with parameters to indicate that the values of these parameters should not be tinkered with.&lt;/p&gt;
 &lt;p&gt;It is Java&amp;rsquo;s version of defining a constant. Or at least, that is what we have been thinking.
 But in real life, a final variable can be changed.
 Take a look at the following example:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Java 26</title>
+      <link>http://localhost:1313/posts/java26/</link>
+      <pubDate>Thu, 25 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/java26/</guid>
+      <description>&lt;p&gt;We&amp;rsquo;ve only just seen the release of Java 25, the latest LTS version of the popular language.
+But on March, 21st, the next iteration of the Java language, Java 26, will be launched.&lt;/p&gt;
+&lt;h2 id=&#34;what-is-in-there&#34;&gt;What is in there?&lt;/h2&gt;
+&lt;p&gt;Java 26 will be made up of 10 Java Enhancement Proposals.
+Here is a short summary. In the coming weeks, I will talk about each of these in more detail on this site.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
