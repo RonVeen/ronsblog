@@ -1,6 +1,6 @@
 ---
 title: "Java 26"
-date: 2026-01-22
+date: 2025-12-25
 draft: false
 tags: ["Java", "Java 26"]
 cover:
@@ -48,7 +48,7 @@ This allows application threads and GC optimizer threads to update separate tabl
 This preview feature provides a standardized API (`PEMEncoder` and `PEMDecoder`) to convert cryptographic keys and certificates to and from the PEM textual format. 
 This second preview adds support for encrypting and decrypting `KeyPair` and `PKCS8EncodedKeySpec` objects, simplifying code that previously required manual Base64 parsing.
 
-**JEP 525: Structured Concurrency (Sixth Preview)**
+[JEP 525: Structured Concurrency (Sixth Preview)](/posts/jep525-Structured-Concurrency/)
 Structured concurrency treats groups of related tasks running in different threads as a single unit of work, ensuring clearer error handling and preventing thread leaks. 
 This sixth preview updates the `Joiner` interface to return lists of results rather than streams and refines the `onTimeout` handling. 
 
