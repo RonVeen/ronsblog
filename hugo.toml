@@ -39,8 +39,8 @@ theme = 'PaperMod'
     url = "/books/"
     weight = 20
   [[menu.main]]
-    identifier = "Conferences"
-    name = "Conferences"
+    identifier = "Conference"
+    name = "Conference"
     url = "/conferences/"
     weight = 23
   [[menu.main]]
