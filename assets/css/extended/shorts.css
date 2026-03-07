@@ -1,0 +1,7 @@
+/* Shorts section: use full width for text (no left image column) */
+@media (min-width: 768px) {
+  .post-entry.shorts-entry {
+    display: block !important; /* override grid from thumbnails.css */
+  }
+}
+
