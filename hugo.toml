@@ -1,4 +1,4 @@
-baseURL = 'https://ronsblog.ronveen-0b6.workers.dev/'
+baseURL = 'https://ronveen.com/'
 languageCode = 'en-us'
 title = "Ron's Tech Blog"
 theme = 'PaperMod'
