@@ -24,7 +24,7 @@ It prepares developers for a future release where such modifications will be blo
 <br>
 
 
-[JEP 504: Remove the Applet API](/posts/jep504-Remove-the-applet-API/)
+[JEP 504: Remove the Applet API](/posts/jep504-remove-the-applet-api/)
 
 This JEP permanently removes the `java.applet` package and related classes, which were previously deprecated for removal in JDK 17. 
 Since web browsers no longer support applets and the Security Manager was disabled in JDK 24, the API is now obsolete. 
@@ -41,7 +41,7 @@ The JVM now streams objects into memory and materializes them according to the a
 [JEP 517: HTTP/3 for the HTTP Client API](/posts/jep517-http3-for-the-http-client-api/)
 This update enables the `java.net.http.HttpClient` to support HTTP/3, utilizing QUIC over UDP for improved performance in packet-loss environments.
 
-[JEP 522: G1 GC: Improve Throughput by Reducing Synchronization](/posts/jep522-G1-improve-througput-by-reducing-synchronization/)
+[JEP 522: G1 GC: Improve Throughput by Reducing Synchronization](/posts/jep522-g1-improve-througput-by-reducing-synchronization/)
 This performance improvement for the G1 garbage collector introduces a second "card table" to track heap modifications. 
 This allows application threads and GC optimizer threads to update separate tables, eliminating synchronization locks and simplifying write barriers. The result is a 5–15% throughput increase for applications with heavy reference updates.
 
@@ -49,18 +49,18 @@ This allows application threads and GC optimizer threads to update separate tabl
 This preview feature provides a standardized API (`PEMEncoder` and `PEMDecoder`) to convert cryptographic keys and certificates to and from the PEM textual format. 
 This second preview adds support for encrypting and decrypting `KeyPair` and `PKCS8EncodedKeySpec` objects, simplifying code that previously required manual Base64 parsing.
 
-[JEP 525: Structured Concurrency (Sixth Preview)](/posts/jep525-Structured-Concurrency/)
+[JEP 525: Structured Concurrency (Sixth Preview)](/posts/jep525-structured-concurrency/)
 Structured concurrency treats groups of related tasks running in different threads as a single unit of work, ensuring clearer error handling and preventing thread leaks. 
 This sixth preview updates the `Joiner` interface to return lists of results rather than streams and refines the `onTimeout` handling. 
 
-[JEP 526: Lazy Constants (Second Preview)](/posts/jep526-Lazy-Constants/)
+[JEP 526: Lazy Constants (Second Preview)](/posts/jep526-lazy-constants/)
 Renamed from "Stable Values," this feature allows variables to be initialized lazily via a computing function while being treated as true constants by the JVM for optimization purposes. 
 Changes in this preview include removing low-level methods, disallowing `null` values, and adding `List.ofLazy` and `Map.ofLazy` factories.
 
-[JEP 529: Vector API (Eleventh Incubator)](/posts/jep529-Vector-API/)
+[JEP 529: Vector API (Eleventh Incubator)](/posts/jep529-vector-api/)
 This API allows developers to express complex vector computations that compile to efficient SIMD hardware instructions at runtime. 
 It remains in incubation without substantial changes, waiting for Project Valhalla's value classes to become available for future integration.
 
-[JEP 530: Primitive Types in Patterns, instanceof, and switch (Fourth Preview)](/posts/jep530-Pattern-matching-for-primitives/)
+[JEP 530: Primitive Types in Patterns, instanceof, and switch (Fourth Preview)](/posts/jep530-pattern-matching-for-primitives   /)
 This feature removes restrictions on using primitive types in pattern matching, `switch`, and `instanceof`, enabling checks like `i instanceof byte` for safe casting. 
 The fourth preview enhances dominance checks to catch more unreachable code errors and refines the definition of unconditional exactness.
