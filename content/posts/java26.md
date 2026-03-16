@@ -11,7 +11,7 @@ series_order: 1
 ---
 
 We've only just seen the release of Java 25, the latest LTS version of the popular language.
-But on March, 21st, the next iteration of the Java language, Java 26, will be launched.
+But on March, 17st, the next iteration of the Java language, Java 26, will be launched.
 
 ## What is in there?
 Java 26 will be made up of 10 Java Enhancement Proposals.
