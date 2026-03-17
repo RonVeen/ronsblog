@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Block committing generated site output under public/
+# Allow override with ALLOW_PUBLIC=1 or --no-verify
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR || true)
+blocked=$(echo "$staged" | awk '/^public\//')
+
+if [[ -n "${blocked}" && "${ALLOW_PUBLIC:-0}" != "1" ]]; then
+  echo "\n[pre-commit] Blocking commit: detected generated files under public/:" >&2
+  echo "$blocked" >&2
+  echo "\npublic/ is build output and should not be committed." >&2
+  echo "If you really intend to commit these files, run:" >&2
+  echo "  ALLOW_PUBLIC=1 git commit -m '...'" >&2
+  echo "or bypass hooks once with: git commit --no-verify" >&2
+  exit 1
+fi
+
+exit 0
+
