@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Change to repo root (site folder)
+cd "$(dirname "$0")/.."
+
+# Ensure theme submodule is present for local runs
+git submodule sync >/dev/null 2>&1 || true
+git submodule update --init --recursive >/dev/null 2>&1 || true
+
+if ! command -v hugo >/dev/null 2>&1; then
+  echo "Error: Hugo is not installed. Install Hugo Extended and try again." >&2
+  exit 1
+fi
+
+# Local baseURL (server rewrites links); override by exporting HUGO_BASEURL if desired
+HUGO_BASEURL="${HUGO_BASEURL:-http://localhost:1313/}"
+
+# Build drafts/future for authoring; override via env BUILD_DRAFTS/BUILD_FUTURE if needed
+if [[ "${BUILD_DRAFTS:-1}" == "1" ]]; then DRAFT_FLAG="-D"; else DRAFT_FLAG=""; fi
+if [[ "${BUILD_FUTURE:-1}" == "1" ]]; then FUTURE_FLAG="-F"; else FUTURE_FLAG=""; fi
+
+exec hugo server $DRAFT_FLAG $FUTURE_FLAG --baseURL "$HUGO_BASEURL"
+
