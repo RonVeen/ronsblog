@@ -1,5 +1,5 @@
 ---
-title: "Claude Code - Introduction"
+title: "Claude Code - 01 - Introduction"
 date: 2026-05-20
 draft: false
 tags: ["Claude", "Claude Code", "Anthropic", "AI", "Agent Coding"]
@@ -137,7 +137,7 @@ Give it a try. Start with a refactor you’ve been dreading. And keep that /rewi
 
 Watch out for the next parts:
 
-**Part 2 — Configuration: Taming Claude Code with CLAUDE.md** How to write an effective CLAUDE.md, token-efficient tips, project vs global scope, and how Claude Code uses it at session start.
+**[Part 2 — Configuration](/posts/claude-02-configuration/): Taming Claude Code with CLAUDE.md** How to write an effective CLAUDE.md, token-efficient tips, project vs global scope, and how Claude Code uses it at session start.
 
 **Part 3 — Skills: Teaching Claude Code Your Standards** The SKILL.md architecture, auto-triggered vs explicit skills, writing your own, and best practices for skill design.
 
