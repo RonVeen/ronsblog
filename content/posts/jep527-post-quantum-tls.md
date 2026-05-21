@@ -4,8 +4,8 @@ date: 2026-03-15
 draft: false
 tags: ["Java", "Java 27", "JEP 527", "TLS", "Post-Quantum", "Post-Quantum Hybrid Key Exchange"]
 cover:
-image: "/images/jep527-post-quantum-tls.png"
-alt: "Pattern Matching for primitives"
+  image: "/images/jep527-post-quantum-tls.png"
+  alt: "Pattern Matching for primitives"
 series: ["Java 27"]
 series_order: 1
 ---
