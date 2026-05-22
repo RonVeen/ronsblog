@@ -8,6 +8,7 @@ theme = 'PaperMod'
     disableSpecial1stPost = true # Make first list item same as others (shows thumbnail)
     ShowPostNavLinks = true      # show next/prev post links
     ShowBreadCrumbs = true       # show breadcrumbs on posts
+    ShowReadingTime = true       # show reading time on posts
 
 [taxonomies]
   series = "series"
