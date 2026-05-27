@@ -10,20 +10,20 @@
 <div class="series-list">
     {{- $type := .Type -}}
 
-    {{/* Collect all term pages and sort by weight */}}
-    {{- $termPages := slice -}}
+    {{/* Build a slice of dicts carrying the original term name, count, and page */}}
+    {{- $entries := slice -}}
     {{- range .Data.Terms.Alphabetical -}}
     {{- $tp := site.GetPage (printf "/%s/%s" $type .Name) -}}
     {{- if $tp -}}
-    {{- $termPages = $termPages | append $tp -}}
+    {{- $entries = $entries | append (dict "name" .Name "count" .Count "page" $tp "weight" $tp.Weight) -}}
     {{- end -}}
     {{- end -}}
 
-    {{- range sort $termPages "Weight" "asc" -}}
-    {{- $termPage := . -}}
-    {{- $name := .Name -}}
+    {{- range sort $entries "weight" "asc" -}}
+    {{- $name := .name -}}
+    {{- $count := .count -}}
+    {{- $termPage := .page -}}
     {{- $seriesPages := where site.RegularPages "Params.series" "intersect" (slice $name) -}}
-    {{- $count := len $seriesPages -}}
     {{- $posts := sort $seriesPages "Params.series_order" "asc" -}}
     {{- $first := index $posts 0 -}}
     {{- $thumb := "" -}}
