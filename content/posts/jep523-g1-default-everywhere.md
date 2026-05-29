@@ -1,5 +1,5 @@
 ---
-title: "Java 27 - part 2: JEP 523 - G1 Becomes the Default Everywhere"
+title: "Java 27 - part 1: JEP 523 - G1 Becomes the Default Everywhere"
 date: 2026-05-22
 draft: false
 tags: ["java", "java27", "jdk27", "garbage-collection", "g1", "jep523", "performance"]
@@ -7,9 +7,9 @@ cover:
   image: "/images/jep523-g1-default-everywhere.png"
   alt: "Structured Concurrency"
 series: ["Java 27"]
+
 series_order: 2 
 ---
-
 **G1 Garbge Collector, Always.**   
 If you've ever wondered which garbage collector the JVM actually picked for you when you *didn't* tell it which one to use, the answer was always a little annoying: "well, it depends."
 

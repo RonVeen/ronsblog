@@ -1,5 +1,5 @@
 ---
-title: "Java 27 - part 1: JEP 527-Post-Quantum Hybrid Key Exchange for TLS 1.3"
+title: "Java 27 - part 2: JEP 527-Post-Quantum Hybrid Key Exchange for TLS 1.3"
 date: 2026-03-15
 draft: false
 tags: ["Java", "Java 27", "JEP 527", "TLS", "Post-Quantum", "Post-Quantum Hybrid Key Exchange"]
@@ -7,7 +7,7 @@ cover:
   image: "/images/jep527-post-quantum-tls.png"
   alt: "Pattern Matching for primitives"
 series: ["Java 27"]
-series_order: 1
+series_order: 3
 ---
 Java 26 has just been released! (depending on your timezone), but work on Java 27 is already on the way.
 The first JEP of the new release is [JEP 527](https://openjdk.java.net/jeps/527): Post-Quantum Hybrid Key Exchange for TLS 1.3.
