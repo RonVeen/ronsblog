@@ -3,7 +3,7 @@ title: "Spring AI in Depth"
 description: "Learn how Spring AI works."
 weight: 50
 cover:
-  image: "/images/spring-ai-01-introduction.png"
+  image: "/images/spring-ai-logo.png"
   alt: "Spring AI in Depth"
 ---
 

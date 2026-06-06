@@ -1,7 +1,7 @@
 ---
 title: "Java 27"
 description: "All posts for the upcoming Java 27 release."
-weight: 10 
+weight: 60
 cover:
   image: "/images/java27-series.png"
   alt: "Java 27 overview"
