@@ -1,0 +1,33 @@
+.subscribe-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--entry);
+}
+
+.subscribe-bar span {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.subscribe-btn {
+    padding: 0.4rem 1.2rem;
+    background: var(--primary);
+    color: var(--theme);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.subscribe-btn:hover {
+    opacity: 0.85;
+}

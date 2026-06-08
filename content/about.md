@@ -21,3 +21,6 @@ A dedicated Java enthusiast, Ron also has a keen interest in alternative JVM lan
 At Team Rockstars IT, he serves as a Special Agent and lead developer, frequently speaking at international conferences. 
 Ron is the author of books on Java Cloud-native migrations with Jakarta EE and on Virtual Threads, Structured Concurrency, and Scoped Values. 
 He has also co-written a book on Kotlin.
+## Stay Updated
+Subscribe to get new articles delivered to your inbox.
+<iframe src="https://ronstechblog.substack.com/embed" width="480" height="320" style="border: 1px solid #EEE; background: white" frameborder="0" scrolling="no"></iframe>

@@ -29,6 +29,8 @@
 </header>
 {{- end }}
 
+{{ partial "subscribe-bar.html" . }}
+
 {{- if .Content }}
 <div class="post-content">
   {{- if not (.Param "disableAnchoredHeadings") }}
