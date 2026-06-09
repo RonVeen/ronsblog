@@ -8,6 +8,7 @@ cover:
   alt: "Configuring Claude Code with CLAUDE.md"
 series: ["Claude Code"]
 series_order: 2
+categories: ["ai"]
 ---
 In [Part 1](https://ronveen.com/posts/claude-01-introduction/), I showed you what Claude Code is and what it can do. You saw an AI agent that reads your project, writes code, runs your build, and fixes its own mistakes. Impressive stuff.
 

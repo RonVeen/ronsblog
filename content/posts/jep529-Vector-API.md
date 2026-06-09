@@ -8,6 +8,7 @@ cover:
   alt: "Vector API"
 series: ["Java 26"]
 series_order: 10
+categories: ["java"]
 ---
 
 **Java’s Vector API: The Marathon Continues (JEP 529)**  

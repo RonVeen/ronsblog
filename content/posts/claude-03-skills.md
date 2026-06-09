@@ -8,6 +8,7 @@ cover:
   alt: "Using skills with Claude Code"
 series: ["Claude Code"]
 series_order: 3
+categories: ["ai"]
 ---
 # Claude Code — Teaching It Your Standards with Skills
 

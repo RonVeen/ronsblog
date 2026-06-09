@@ -8,6 +8,7 @@ cover:
   alt: "G1 GC Double Buffering Throughput Improvements"
 series: ["Java 26"]
 series_order: 6
+categories: ["java"]
 ---
 
 If you run Java in production, you are likely using the G1 ("Garbage First") Garbage Collector (it's the default, after all). 

@@ -8,6 +8,7 @@ cover:
   alt: "Java 26 overview"
 series: ["Java 26"]
 series_order: 1
+categories: ["java"]
 ---
 
 We've only just seen the release of Java 25, the latest LTS version of the popular language.

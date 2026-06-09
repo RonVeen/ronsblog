@@ -9,6 +9,7 @@ cover:
 series: ["Spring AI in Depth"]
 series_order: 1000
 description: "Learn what Spring AI is, how it fits into the Spring ecosystem, and get your first chat response in a handful of lines of Java."
+categories: ["ai", "java"]
 ---
 
 I still remember the moment it clicked — and the much longer stretch before it did.

@@ -8,6 +8,7 @@ cover:
   alt: "Pattern Matching for primitives"
 series: ["Java 26"]
 series_order: 11
+categories: ["java"]
 ---
 
 # Java Pattern Matching: The Missing Piece (JEP 530)

@@ -8,6 +8,7 @@ cover:
   alt: "Introduction to Claude Code"
 series: ["Claude Code"]
 series_order: 1
+categories: ["ai"]
 ---
 I remember the first time I tried a GitHub Copilot suggestion in IntelliJ IDEA. It felt like magic. You start typing a method name, and suddenly the entire implementation materialises in grey ghost text. You press Tab, and — bam — it's there.
 

@@ -8,6 +8,7 @@ cover:
   alt: "PEM Encodings of Cryptographic Objects"
 series: ["Java 26"]
 series_order: 7
+categories: ["java"]
 ---
 
 If you have ever had to read a private key or a certificate from a file in Java, you know the pain. 

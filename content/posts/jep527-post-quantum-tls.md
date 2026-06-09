@@ -8,6 +8,7 @@ cover:
   alt: "Pattern Matching for primitives"
 series: ["Java 27"]
 series_order: 3
+categories: ["java"]
 ---
 Java 26 has just been released! (depending on your timezone), but work on Java 27 is already on the way.
 The first JEP of the new release is [JEP 527](https://openjdk.java.net/jeps/527): Post-Quantum Hybrid Key Exchange for TLS 1.3.

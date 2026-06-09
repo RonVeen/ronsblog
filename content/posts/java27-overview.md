@@ -8,6 +8,7 @@ series_order: 1
 cover:
   image: "/images/java27-series.png"
   alt: "Java 27"
+
 ---
 
 Java 27 is currently in development. 

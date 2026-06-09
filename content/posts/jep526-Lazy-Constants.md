@@ -8,6 +8,7 @@ cover:
   alt: "Lazy Constants"
 series: ["Java 26"]
 series_order: 9
+categories: ["java"]
 ---
 
 **Bye-Bye Boilerplate: Say Hello to Java’s New "Lazy Constants"**

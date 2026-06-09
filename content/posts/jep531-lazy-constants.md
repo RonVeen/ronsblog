@@ -8,6 +8,7 @@ cover:
   alt: "Lazy Constants"
 series: ["Java 27"]
 series_order: 4
+categories: ["java"]
 ---
 **Third Time's the Charm: Lazy Constants Get a Trim and a New Trick**
 

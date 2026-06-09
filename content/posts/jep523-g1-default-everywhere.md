@@ -7,8 +7,8 @@ cover:
   image: "/images/jep523-g1-default-everywhere.png"
   alt: "Structured Concurrency"
 series: ["Java 27"]
-
-series_order: 2 
+series_order: 2
+categories: ["java"]
 ---
 **G1 Garbge Collector, Always.**   
 If you've ever wondered which garbage collector the JVM actually picked for you when you *didn't* tell it which one to use, the answer was always a little annoying: "well, it depends."
