@@ -4,12 +4,14 @@ title = "Ron's Tech Blog"
 theme = 'PaperMod'
 
 [params]
-    showCodeCopyButtons = true # Allows readers to copy your Java code easily
-    disableSpecial1stPost = true # Make first list item same as others (shows thumbnail)
-    ShowPostNavLinks = true      # show next/prev post links
-    ShowBreadCrumbs = true       # show breadcrumbs on posts
-    ShowReadingTime = true       # show reading time on posts
-    cover.relative = true
+  showCodeCopyButtons = true
+  disableSpecial1stPost = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowReadingTime = true
+  cover.relative = true
+  cover.hiddenInList = false    # ← add this
+  cover.linkFullImages = true   # ← add this
 
 [taxonomies]
   series = "series"
