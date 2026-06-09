@@ -4,7 +4,7 @@ date: 2026-05-20
 draft: false
 tags: ["Claude", "Claude Code", "Anthropic", "AI", "Agent Coding"]
 cover:
-  image: "/images/Claude-part1-introduction.png"
+  image: "images/Claude-part1-introduction.png"
   alt: "Introduction to Claude Code"
 series: ["Claude Code"]
 series_order: 1

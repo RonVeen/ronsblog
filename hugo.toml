@@ -9,7 +9,7 @@ theme = 'PaperMod'
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowReadingTime = true
-  cover.relative = true
+  cover.relative = false
   cover.hiddenInList = false    # ← add this
   cover.linkFullImages = true   # ← add this
 
