@@ -4,7 +4,7 @@ date: 2026-05-22
 draft: false
 tags: ["Claude", "Claude Code", "Anthropic", "AI", "Agent Coding", "Skills"]
 cover:
-  image: "/images/Claude-03-skills.png"
+  image: "images/Claude-03-skills.png"
   alt: "Using skills with Claude Code"
 series: ["Claude Code"]
 series_order: 3
