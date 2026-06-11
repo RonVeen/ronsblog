@@ -1,7 +1,7 @@
 ---
 title: "Claude Code - 02 - Configuration"
 date: 2026-05-21
-draft: false
+draft: true
 tags: ["Claude", "Claude Code", "Anthropic", "AI", "Agent Coding"]
 cover:
   image: "/images/Claude-02-configuration.png"
