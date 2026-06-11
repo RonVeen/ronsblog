@@ -2,6 +2,8 @@ This is a list of the talks I've given, either at conferences, meetups or other 
 
 ## 2026
 
+- AI in Actie, Belastingdienst, The Netherlands
+- Future You, Team Rockstars IT, Utrecht, The Netherlands
 - DevDays Europe, Vilnius, Lithuania
 - Microsoft JDConf, Online
 - Warsaw IT Days, Warsaw, Poland
