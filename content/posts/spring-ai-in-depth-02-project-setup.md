@@ -1,7 +1,7 @@
 ---
 title: "Spring AI Series: Setup Spring AI"
-date: 2026-06-09
-draft: false
+date: 2029-12-31
+draft: true
 tags": ["Java", "Spring Boot", "AI", "Spring AI"]
 cover:
   image: "/images/spring-ai-02-setup.png"
