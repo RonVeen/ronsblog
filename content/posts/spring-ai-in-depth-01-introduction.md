@@ -1,5 +1,5 @@
 ---
-title: "Spring AI Series: Introduction to Spring AI"
+title: "Spring AI Series: 1-Introduction to Spring AI"
 date: 2026-06-06
 draft: false
 tags": ["Java", "Spring Boot", "AI", "Spring AI"]
@@ -7,7 +7,7 @@ cover:
   image: "/images/spring-ai-01-introduction.png"
   alt: "Spring AI Series: Introduction to Spring AI"
 series: ["Spring AI in Depth"]
-series_order: 1000
+series_order: 1
 description: "Learn what Spring AI is, how it fits into the Spring ecosystem, and get your first chat response in a handful of lines of Java."
 categories: ["ai", "java"]
 ---
@@ -212,5 +212,3 @@ In the next article, we'll do a proper project setup — starters, dependencies,
 If the example above already has you curious about what `ChatClient.Builder` is doing under the hood — good. That's exactly where we're headed.
 
 *This is part 1 of a 13-part series.*
-
-[Next: Spring AI in Depth - 02 - Project Setup and Auto-Configuration Deep Dive →]

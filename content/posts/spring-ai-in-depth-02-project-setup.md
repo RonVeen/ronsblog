@@ -1,13 +1,13 @@
 ---
-title: "Spring AI Series: Setup Spring AI"
-date: 2029-12-31
-draft: true
+title: "Spring AI Series: 2-Setup Spring AI"
+date: 2026-06-12
+draft: false
 tags": ["Java", "Spring Boot", "AI", "Spring AI"]
 cover:
   image: "/images/spring-ai-02-setup.png"
   alt: "Spring AI Series: Introduction to Spring AI"
 series: ["Spring AI in Depth"]
-series_order: 950
+series_order: 2
 description: "Learn to setup a Spring AI project and understand how it works."
 categories: ["ai", "java"]
 ---
@@ -109,7 +109,7 @@ The fastest way is [start.spring.io](https://start.spring.io). Select:
 
 Hit Generate, unzip, open in your IDE.
 
-If you're setting up manually, here's the complete `pom.xml`. This is the same file from article 1.
+If you're setting up manually, here's the complete `pom.xml`. This is the nearly the same file as from article 1. We only added the Spring Starter for OpenAI as dependency
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -128,13 +128,13 @@ If you're setting up manually, here's the complete `pom.xml`. This is the same f
 
     <groupId>org.veenx</groupId>
     <artifactId>spring-ai-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>spring-ai-demo</name>
     <description>Spring AI in Depth — demo project</description>
 
     <properties>
         <java.version>25</java.version>
-        <spring-ai.version>2.0.0</spring-ai.version>
+        <spring-ai.version>2.0.0-M8</spring-ai.version>
     </properties>
 
     <dependencyManagement>
@@ -157,6 +157,10 @@ If you're setting up manually, here's the complete `pom.xml`. This is the same f
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-model-anthropic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-openai</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -189,14 +193,15 @@ The same pattern Spring Boot itself uses. Keep the BOM version in a property —
 
 Spring AI follows Spring Boot's starter convention. Each model provider has a dedicated starter:
 
-| Provider | Starter artifact |
-|---|---|
-| Anthropic | `spring-ai-starter-model-anthropic` |
-| OpenAI | `spring-ai-starter-model-openai` |
-| Ollama | `spring-ai-starter-model-ollama` |
-| Google Vertex AI | `spring-ai-starter-model-vertex-ai-gemini` |
+| Provider     | Starter artifact                       |
+|--------------|----------------------------------------|
+| Anthropic    | `spring-ai-starter-model-anthropic`    |
+| OpenAI       | `spring-ai-starter-model-openai`       |
+| Ollama       | `spring-ai-starter-model-ollama`       |
+| Google       | `spring-ai-starter-model-google-genai` |        
 | Azure OpenAI | `spring-ai-starter-model-azure-openai` |
-| Mistral | `spring-ai-starter-model-mistral-ai` |
+| Mistral      | `spring-ai-starter-model-mistral-ai`   |
+| DeepSeek     | `spring-ai-starter-model-deepseek`     |
 
 Each starter pulls in the necessary dependencies and — critically — an autoconfiguration class that wires up the right Spring beans when it finds the correct properties on the classpath. You only need one starter to get a working chat model. But you can include multiple starters if you want to work with multiple providers simultaneously — and we will.
 
@@ -264,6 +269,9 @@ A `Prompt` in, a `ChatResponse` out. You'll rarely use `ChatModel` directly in a
 
 Spring AI is configured through Spring Boot's standard property system. We use `application.properties` throughout this series rather than YAML — not because YAML is wrong, but because properties files are easier to copy-paste individual lines from, and there's no indentation to misalign. For complex nested configuration YAML is genuinely nicer; for tutorial examples, properties win on clarity.
 
+> Please note that if you are using a Spring AI 1.x version, the properties are defined as `spring.ai.<provider>.chat.options.xxx` instead of `spring.ai.<provider>.chat.xxx`. See [here](https://docs.spring.io/spring-ai/reference/2.0-SNAPSHOT/upgrade-notes.html#_options_and_properties) for details
+
+
 ### Anthropic
 
 ```properties
@@ -271,11 +279,11 @@ Spring AI is configured through Spring Boot's standard property system. We use `
 spring.ai.anthropic.api-key=${ANTHROPIC_API_KEY}
 
 # The model to use — we use Haiku throughout this series (cheapest option)
-spring.ai.anthropic.chat.options.model=claude-haiku-4-5-20251001
+spring.ai.anthropic.chat.model=claude-haiku-4-5-20251001
 
 # Optional tuning — we'll cover what these mean in article 3
-spring.ai.anthropic.chat.options.max-tokens=1024
-spring.ai.anthropic.chat.options.temperature=0.7
+spring.ai.anthropic.chat.max-tokens=1024
+spring.ai.anthropic.chat.temperature=0.7
 ```
 
 > We're deliberately using `claude-haiku-4-5-20251001` — Anthropic's most affordable model — throughout this series. It's more than capable for learning and experimentation. When you move to production, swap in a more powerful model by changing this single property.
@@ -286,9 +294,9 @@ Swap the dependency in `pom.xml` to `spring-ai-starter-model-openai`, then:
 
 ```properties
 spring.ai.openai.api-key=${OPENAI_API_KEY}
-spring.ai.openai.chat.options.model=gpt-4o-mini
-spring.ai.openai.chat.options.max-tokens=1024
-spring.ai.openai.chat.options.temperature=0.7
+spring.ai.openai.chat.model=gpt-4o-mini
+spring.ai.openai.chat.max-tokens=1024
+spring.ai.openai.chat.temperature=0.7
 ```
 
 Your application code doesn't change. At all.
@@ -299,10 +307,11 @@ Swap the dependency to `spring-ai-starter-model-ollama`:
 
 ```properties
 spring.ai.ollama.base-url=http://localhost:11434
-spring.ai.ollama.chat.options.model=llama3.2
+spring.ai.ollama.chat.model=llama3.2
 ```
 
-No API key. Make sure Ollama is running before starting your application.
+No API key. Make sure Ollama is running before starting your application.  
+If you decide to not specify a model, the default model will be used, which is `mistral`.
 
 ### LMStudio (Free, Local)
 
@@ -311,22 +320,24 @@ LMStudio exposes an OpenAI-compatible API, so use the OpenAI provider with a cus
 ```properties
 spring.ai.openai.base-url=http://localhost:1234
 spring.ai.openai.api-key=lm-studio
-spring.ai.openai.chat.options.model=local-model
+spring.ai.openai.chat.model=local-model
 ```
 
 The `api-key` value is required by the provider but ignored by LMStudio — any non-empty string works.
 
 ### Switching Providers Is One Dependency Swap
 
-This bears repeating. Your application code — the `ChatClient` calls, the prompt construction, the response handling — is identical regardless of which provider you're using. The only things that change are the starter dependency and a handful of properties.
+This should be familiar to all Spring developers: Your application code — the `ChatClient` calls, the prompt construction, the response handling — is identical regardless of which provider you're using. The only things that change are the starter dependency and a handful of properties.
 
-That's not marketing copy. It genuinely works that way. We'll see it in practice throughout the series.
+That's what we have become to expect from Spring, and it genuinely works that way. We'll see it in practice throughout the series.
 
 ## Running Two Providers Simultaneously
 
 Here's where it gets interesting. Sometimes you want both Anthropic and OpenAI active in the same application — perhaps using Claude for creative tasks and GPT-4o-mini for structured extraction, or routing between providers based on cost. Spring AI handles this cleanly.
+When multiple `ChatClient` beans exist, Spring needs to know which one to inject when no qualifier is specified. The cleanest solution is `@Primary` — mark your default provider's bean with it, and Spring will use it for unqualified injection points. Only the secondary provider needs a `@Qualifier`. This maps naturally to how most applications actually work: one provider for general use, another for specific tasks like structured extraction or cost-sensitive operations.
 
-First, include both starters:
+If there's genuinely no default — both providers are equally specific — use `@Qualifier` on both beans and both injection points. Either way, constructing your `ChatClient` beans from the typed model beans (`AnthropicChatModel`, `OpenAiChatModel`) rather than the generic `ChatClient.Builder` avoids autoconfiguration ambiguity entirely.
+
 
 ```xml
 <dependency>
@@ -343,10 +354,10 @@ Both providers need their properties set:
 
 ```properties
 spring.ai.anthropic.api-key=${ANTHROPIC_API_KEY}
-spring.ai.anthropic.chat.options.model=claude-haiku-4-5-20251001
+spring.ai.anthropic.chat.model=claude-haiku-4-5-20251001
 
 spring.ai.openai.api-key=${OPENAI_API_KEY}
-spring.ai.openai.chat.options.model=gpt-4o-mini
+spring.ai.openai.chat.model=gpt-4o-mini
 ```
 
 Then define a `ChatClient` bean for each, backed by its respective model:
@@ -360,12 +371,13 @@ import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class AiConfig {
 
     @Bean
-    @Qualifier("anthropic")
+    @Primary
     public ChatClient anthropicChatClient(AnthropicChatModel model) {
         return ChatClient.builder(model)
                 .defaultSystem("You are a helpful assistant specialised in Java and Spring Boot.")
@@ -398,7 +410,7 @@ public class MultiProviderService {
     private final ChatClient openAiClient;
 
     public MultiProviderService(
-            @Qualifier("anthropic") ChatClient anthropicClient,
+            ChatClient anthropicClient,
             @Qualifier("openai") ChatClient openAiClient) {
         this.anthropicClient = anthropicClient;
         this.openAiClient = openAiClient;
@@ -416,7 +428,44 @@ public class MultiProviderService {
 
 Standard Spring qualifier injection. No Spring AI-specific magic involved.
 
-One thing to be aware of: when multiple `ChatClient.Builder` beans exist, Spring's autoconfiguration for `ChatClient.Builder` may complain about ambiguity. The solution is to always construct your `ChatClient` beans explicitly from the typed model beans (`AnthropicChatModel`, `OpenAiChatModel`) rather than from the generic `ChatClient.Builder`. That's what the example above does, and it sidesteps the issue entirely.
+One thing to be aware of: when multiple `ChatClient.Builder` beans exist, Spring's autoconfiguration for `ChatClient.Builder` may complain about ambiguity. The solution is to always construct your `ChatClient` beans explicitly from the typed model beans (`AnthropicChatModel`, `OpenAiChatModel`) rather than from the generic `ChatClient.Builder`.
+
+Our main application class will look like this:
+```java
+package org.veenx.springai.demo;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.veenx.springai.demo.service.MultiProviderService;
+
+@SpringBootApplication
+public class SpringAiDemoApplication implements CommandLineRunner {
+
+    private final MultiProviderService multiProviderService;
+
+    public SpringAiDemoApplication(MultiProviderService service) {
+        this.multiProviderService = service;
+    }
+
+    @Override
+    public void run(String... args) {
+        var response = "";
+        if (args.length == 0) {
+            response = multiProviderService.chat("What makes Spring AI different from using an LLM SDK directly?");
+        } else {
+            response = multiProviderService.extract("Extract the main points from the following text: " + String.join(" ", args));
+        }
+        System.out.println(response);
+    }
+
+    public static void main(String... args) {
+        SpringApplication.run(SpringAiDemoApplication.class, args);
+    }
+}
+```
+If you enter no arguments, the application will use Anthropic. If you enter some text, it will send it to OpenAI.
+
 
 ## Customising the ChatClient Bean
 
@@ -503,13 +552,13 @@ src/main/resources/
 
 `application.properties`:
 ```properties
-spring.ai.anthropic.chat.options.model=claude-haiku-4-5-20251001
+spring.ai.anthropic.chat.model=claude-haiku-4-5-20251001
 ```
 
 `application-local.properties`:
 ```properties
 spring.ai.ollama.base-url=http://localhost:11434
-spring.ai.ollama.chat.options.model=llama3.2
+spring.ai.ollama.chat.model=llama3.2
 ```
 
 `application-prod.properties`:
@@ -519,95 +568,8 @@ spring.ai.anthropic.api-key=${ANTHROPIC_API_KEY}
 
 Run locally with `-Dspring.profiles.active=local`. Deploy to production with `-Dspring.profiles.active=prod`. The application code never changes.
 
-## Putting It All Together
+As usual, the source for this example is available on my [GitHub](https://github.com/RonVeen/spring-ai-in-depth/tree/02-setup).
 
-Here's a complete, properly structured Spring AI project that ties together everything in this article:
-
-`AiConfig.java`:
-```java
-package org.veenx.springai.demo.config;
-
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class AiConfig {
-
-    @Bean
-    public ChatClient chatClient(ChatClient.Builder builder) {
-        return builder
-                .defaultSystem("You are a helpful assistant specialised in Java and Spring Boot.")
-                .build();
-    }
-}
-```
-
-`AssistantService.java`:
-```java
-package org.veenx.springai.demo.service;
-
-import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.stereotype.Service;
-
-@Service
-public class AssistantService {
-
-    private final ChatClient chatClient;
-
-    public AssistantService(ChatClient chatClient) {
-        this.chatClient = chatClient;
-    }
-
-    public String ask(String question) {
-        return chatClient
-                .prompt()
-                .user(question)
-                .call()
-                .content();
-    }
-}
-```
-
-`SpringAiDemoApplication.java`:
-```java
-package org.veenx.springai.demo;
-
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.veenx.springai.demo.service.AssistantService;
-
-@SpringBootApplication
-public class SpringAiDemoApplication implements CommandLineRunner {
-
-    private final AssistantService assistantService;
-
-    public SpringAiDemoApplication(AssistantService assistantService) {
-        this.assistantService = assistantService;
-    }
-
-    @Override
-    public void run(String... args) {
-        String response = assistantService.ask(
-                "What's the difference between @Component, @Service, and @Repository in Spring?"
-        );
-        System.out.println(response);
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(SpringAiDemoApplication.class, args);
-    }
-}
-```
-
-`application.properties`:
-```properties
-spring.ai.anthropic.api-key=${ANTHROPIC_API_KEY}
-spring.ai.anthropic.chat.options.model=claude-haiku-4-5-20251001
-```
-
-Clean separation of concerns. The configuration class owns the `ChatClient` bean. The service owns the business logic. The application class owns the entry point. Each has one job. This structure carries through the rest of the series.
 
 ## What's Next
 
@@ -619,5 +581,3 @@ The engine is running. Time to learn the dashboard.
 
 *This is part 2 of a 13-part series.*
 
-[← Previous: Spring AI in Depth - 01 - Introduction to Spring AI]
-[Next: Spring AI in Depth - 03 - ChatClient: The Heart of Spring AI →]
