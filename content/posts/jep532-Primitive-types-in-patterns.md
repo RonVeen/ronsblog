@@ -1,7 +1,7 @@
 ---
 title: "Java 27 - part 4: JEP 532 - Primitive Types in Patterns"
 date: 2026-06-15
-draft: true
+draft: false
 tags: ["java", "java27", "jdk27", "pattern matching", "jep532"]
 cover:
   image: "/images/jep532-primitive-types-in-patterns.png"
