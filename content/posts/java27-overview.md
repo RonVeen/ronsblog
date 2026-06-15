@@ -23,7 +23,10 @@ Simplifies Java's garbage collection behavior by making the G1 Garbage Collector
 Introduces a hybrid key exchange for Java 27 that layers new quantum-resistant math (ML-KEM) on top of proven traditional encryption to ensure data remains secure.
 
 [JEP 531 Lazy Constants](/posts/jep531-lazy-constants/)   
-delivers a third preview pass for Java 27's Lazy Constants API, focusing on polishing the deferred immutability feature rather than completely reinventing it.
+Delivers a third preview pass for Java 27's Lazy Constants API, focusing on polishing the deferred immutability feature rather than completely reinventing it.
+
+[JEP 532 Primitive types in patterns](/posts/jep532-primitive-types-in-patterns/)   
+Another round of review for primitives in patterns. Nothing new in this JEP, it is just asking the community for feedback.
 
 
 
