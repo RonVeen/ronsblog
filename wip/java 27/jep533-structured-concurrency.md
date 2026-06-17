@@ -1,11 +1,4 @@
 ---
-title       = "JEP 533 - Structured Concurrency Gets Sharper in JDK 27"
-date        = "2026-06-16"
-draft       = true
-tags        = ["Java"]
-description = "Learn what's new in the seventh preview of Structured Concurrency."
----
----
 title: "JEP 533 - Structured Concurrency Gets Sharper in JDK 27"
 date: 2026-06-22
 draft: true
