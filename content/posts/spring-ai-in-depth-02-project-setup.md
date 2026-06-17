@@ -12,6 +12,7 @@ description: "Learn to setup a Spring AI project and understand how it works."
 categories: ["ai", "java"]
 ---
 
+## Intro
 In the previous article, we ran a Spring AI application in about twenty lines of Java. It worked. A `ChatClient` appeared out of nowhere, we called `.prompt().user(...).call().content()`, and Claude answered.
 
 That's the magic of Spring Boot autoconfiguration — and also the danger of it.
