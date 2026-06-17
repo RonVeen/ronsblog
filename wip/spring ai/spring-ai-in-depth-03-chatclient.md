@@ -43,7 +43,7 @@ Notice what's *not* on that list: a chatbot. The AI in this system works behind 
 
 Today's contribution is modest but foundational: an endpoint that accepts a raw customer ticket and returns a clean summary for the support agent. To build it properly, we need to actually understand `ChatClient`.
 
-The full source code lives in the [GitHub repository](https://github.com/RonVeen/spring-ai-in-depth), including the Gradle build files.
+The full source code lives in the [GitHub repository](https://github.com/RonVeen/spring-ai-in-depth/tree/03-chat-client).
 
 ## Creating a ChatClient
 
@@ -140,24 +140,30 @@ Writing the same system prompt on every call gets old fast. The builder lets you
 package org.veenx.springai.demo.config;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AiConfig {
-
     @Bean
-    public ChatClient chatClient(ChatClient.Builder builder) {
+    public ChatClient ticketSummaryClient(ChatClient.Builder builder) {
         return builder
-                .defaultSystemPrompt("""
+                .defaultSystem("""
                         You are a support ticket assistant for BrightCart, an online retailer.
-                        Summarize customer tickets in 2-3 sentences.
+                        Summarize customer tickets in 2-3 sentences for support agents.
+                        Mention any order numbers verbatim.
                         Be factual. Do not speculate about causes or promise solutions.
                         """)
+                .defaultOptions(
+                        (ChatOptions.Builder) ChatOptions.builder()
+                                .temperature(0.2)
+                                .maxTokens(512))
                 .build();
     }
 }
 ```
+> Note that there are API changes in Spring AI 2.0, so `defaultSystemPrompt` is now `defaultSystem`. The same goes for `defaultOptions` — it now expects a `ChatOptions.Builder` instead of a fully built `ChatOptions` object. This change allows you to set defaults without having to construct the options upfront, giving you more flexibility in how you configure your `ChatClient`.
 
 Now every call through this `ChatClient` carries that system prompt automatically. Your call sites shrink back down to:
 
@@ -171,7 +177,7 @@ This is the pattern that makes multiple `ChatClient` beans worthwhile, by the wa
 
 ## The Big Three Model Options
 
-Article 2 promised an explanation of those mysterious properties — `temperature`, `max-tokens` — and here it is. There are a dozen-plus options you *can* tune, but three do most of the work in practice.
+Article 2 promised an explanation of those mysterious properties — `temperature`, `max-tokens`, `top-p` — and here it is. There are a dozen-plus options you *can* tune, but three do most of the work in practice.
 
 > **Concept Primer — Why Models Have Knobs**
 > An LLM generates text one token at a time, and at each step it has a probability distribution over possible next tokens. The options below control how the model samples from that distribution and when it stops. They're request-level settings — no retraining, no fine-tuning, just "behave differently for this call."
@@ -366,8 +372,6 @@ One new dependency in the `pom.xml`:
 </dependency>
 ```
 
-(The updated `pom.xml` and the Gradle equivalent are in the [GitHub repository](https://github.com/RonVeen/spring-ai-in-depth).)
-
 The configuration — everything this article covered, in one bean:
 
 ```java
@@ -380,20 +384,19 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AiConfig {
-
     @Bean
     public ChatClient ticketSummaryClient(ChatClient.Builder builder) {
         return builder
-                .defaultSystemPrompt("""
+                .defaultSystem("""
                         You are a support ticket assistant for BrightCart, an online retailer.
                         Summarize customer tickets in 2-3 sentences for support agents.
                         Mention any order numbers verbatim.
                         Be factual. Do not speculate about causes or promise solutions.
                         """)
-                .defaultOptions(ChatOptions.builder()
-                        .temperature(0.2)
-                        .maxTokens(512)
-                        .build())
+                .defaultOptions(
+                        (ChatOptions.Builder) ChatOptions.builder()
+                                .temperature(0.2)
+                                .maxTokens(512))
                 .build();
     }
 }
@@ -481,12 +484,12 @@ curl -X POST http://localhost:8080/api/tickets/summarize \
 The response:
 
 ```
-The customer reports that order BC-48291, a deluxe espresso machine (€379),
-shows as delivered but was never received. Neighbors were checked without
-result. The customer requests a refund or replacement.
+Customer reports that order BC-48291 (deluxe espresso machine, €379) shows as delivered on Tuesday but has not been received.    
+They have checked with neighbors and are requesting either a refund or replacement.   
+Customer also commented negatively about hold music
 ```
 
-Calm, factual, and the hold music complaint quietly omitted. The support agent gets exactly what they need in three seconds of reading instead of untangling the original.
+Calm, factual, and the hold music complaint made it in as well. The support agent gets exactly what they need in three seconds of reading instead of untangling the original.
 
 That's BrightCart's first feature shipped. Small, but the structure underneath — configured client, service with metadata checks, clean controller — is the foundation everything else builds on.
 
@@ -499,6 +502,3 @@ But you may have noticed our system prompt is doing a lot of heavy lifting with 
 The dashboard is mastered. Time to learn what to say into the microphone.
 
 *This is part 3 of a 13-part series.*
-
-[← Previous: Spring AI in Depth - 02 - Project Setup and Auto-Configuration Deep Dive]
-[Next: Spring AI in Depth - 04 - Prompt Engineering in Java →]
