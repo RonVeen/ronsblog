@@ -22,7 +22,7 @@ Cloudflare Pages
   - HUGO_BASEURL=https://ronveen.com/
 - Enable submodules for the PaperMod theme.
 
-Generated output
+Generated output  
 - public/ is ignored in git. If you ever commit it accidentally:
   - git rm -r --cached public && git commit -m "Stop tracking generated public/ output"
 
