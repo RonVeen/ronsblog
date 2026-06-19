@@ -1,7 +1,7 @@
 ---
 title: "Spring AI Series: 3-ChatClient"
 date: 2026-06-19
-draft: true
+draft: false
 tags": ["Java", "Spring Boot", "AI", "Spring AI"]
 cover:
   image: "/images/spring-ai-03-chatclient.png"
@@ -14,9 +14,9 @@ categories: ["ai", "java"]
 
 Somewhere in articles 1 and 2, I kept writing this line and asking you to take it on faith:
 
-```java
+``java
 chatClient.prompt().user(question).call().content();
-```
+``
 
 It works. It reads nicely. And if you're anything like me, the fact that it works *without you understanding why* has been quietly bothering you since article 1.
 
