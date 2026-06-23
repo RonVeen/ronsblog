@@ -1,7 +1,7 @@
 ---
 title: "JEP 533 - Structured Concurrency Gets Sharper in JDK 27"
-date: 2026-06-22
-draft: true
+date: 2026-06-23
+draft: false
 tags: ["java", "java27", "jdk27", "structured concurrency", "jep533"]
 cover:
   image: "/images/jep533-structured-concurrency.png"
