@@ -6,7 +6,7 @@ categories: ["AI", "Developer Tools"]
 tags: ["AI", "Claude Code", "Developer Tools", "Spring Boot", "Productivity"]
 description: "Stop retyping the same instructions every session. Custom commands let you encode your team's conventions once and invoke them with a single slash."
 cover:
-  image: images/claude-code-custom-commands.png
+  image: images/claude-code-05-custom-commands.png
   alt: Claude Code custom commands
 series: ["Claude Code"]
 series_order: 5
