@@ -1,7 +1,7 @@
 ---
 title: "Spring AI in Depth - 4 - Prompt Engineering"
 date: 2026-06-26
-draft: true
+draft: false
 tags": ["Java", "Spring Boot", "AI", "Spring AI"]
 cover:
   image: "/images/spring-ai-04-prompt-engineering.png"
@@ -219,9 +219,9 @@ package org.veenx.springai.demo.config;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -234,14 +234,11 @@ public class AiConfig {
 
     @Bean
     public ChatClient ticketSummaryClient(ChatClient.Builder builder) throws IOException {
-        String systemPrompt = ticketSummarySystemPrompt.getContentAsString(StandardCharsets.UTF_8);
-
         return builder
-                .defaultSystemPrompt(systemPrompt)
+                .defaultSystem(ticketSummarySystemPrompt.getContentAsString(StandardCharsets.UTF_8))
                 .defaultOptions(ChatOptions.builder()
-                        .temperature(0.2)
-                        .maxTokens(512)
-                        .build())
+                                .temperature(0.2)
+                                .maxTokens(512))
                 .build();
     }
 }
@@ -263,9 +260,9 @@ package org.veenx.springai.demo.config;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -279,15 +276,15 @@ public class AiConfig {
     @Bean
     public ChatClient ticketSummaryClient(ChatClient.Builder builder) throws IOException {
         return builder
-                .defaultSystemPrompt(ticketSummarySystemPrompt.getContentAsString(StandardCharsets.UTF_8))
+                .defaultSystem(ticketSummarySystemPrompt.getContentAsString(StandardCharsets.UTF_8))
                 .defaultOptions(ChatOptions.builder()
                         .temperature(0.2)
-                        .maxTokens(512)
-                        .build())
+                        .maxTokens(512))
                 .build();
     }
 }
 ```
+> I noticed that my IDE, IntelliJ, was having problems with the `defaultOptions` builder. It flagged it as incorrect. But building and running worked, both in the IDE and via Maven. You could cast the defaultOptions method, like we did in the previous article, so circumvent this.
 
 The service now uses the templated user message to pass structured context, while the heavy lifting lives in the externalized system prompt:
 
@@ -394,6 +391,3 @@ But there's still a glaring weakness. Everything we get back is a `String`. When
 That's article 5: structured outputs. We'll take the few-shot classification idea we deferred earlier and turn the model's response into real, typed Java — records, enums, the works. The strings end here.
 
 *This is part 4 of a 13-part series.*
-
-[← Previous: Spring AI in Depth - 03 - ChatClient: The Heart of Spring AI]
-[Next: Spring AI in Depth - 05 - Structured Outputs →]
