@@ -4,7 +4,7 @@
   .post-entry,
   .first-entry {
     display: grid;
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns: 320px minmax(0, 1fr);
     grid-template-rows: auto auto auto;
     column-gap: var(--gap);
     row-gap: 6px;
@@ -20,8 +20,8 @@
 
   .post-entry .entry-cover img,
   .first-entry .entry-cover img {
-    width: 220px;
-    height: 132px; /* 16:9-ish */
+    width: 320px;
+    height: 180px; /* 16:9-ish */
     object-fit: cover;
   }
 

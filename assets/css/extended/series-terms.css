@@ -6,7 +6,7 @@
 
 .series-row {
   display: grid;
-  grid-template-columns: 110px minmax(0, 1fr);
+  grid-template-columns: 320px minmax(0, 1fr);
   gap: var(--gap);
   align-items: center;
   padding: var(--gap);
@@ -16,8 +16,8 @@
 }
 
 .series-thumb {
-  width: 110px;
-  height: 70px;
+  width: 320px;
+  height: 180px;
   object-fit: cover;
   border-radius: var(--radius);
 }
