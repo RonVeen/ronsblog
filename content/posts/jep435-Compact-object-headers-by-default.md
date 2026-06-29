@@ -183,4 +183,113 @@ JEP 534 is the kind of JEP that makes upgrading JDK versions feel worthwhile wit
 
 That microservice that was sitting at 70% heap before a single request? I'd genuinely like to know where it lands on JDK 27.
 
-*This is part 1 of the Java 27 series.*
+---
+## Try it yourself
+Curious how much your own objects benefit? Run the same program with JOL (Java Object Layout) on JDK 26 and JDK 27. The output won’t always show objects shrinking by four bytes—alignment still matters—but you’ll see the header itself shrink from 12 bytes to 8 bytes, and across millions of objects those savings add up.
+### 1. Add the dependency
+
+For Maven:
+```<dependency>
+<groupId>org.openjdk.jol</groupId>
+<artifactId>jol-core</artifactId>
+<version>0.17</version>
+</dependency>
+```
+
+### 2. Create a tiny example
+```java
+import org.openjdk.jol.info.ClassLayout;
+
+public class JolExample {
+
+    static class Person {
+        int age;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(ClassLayout.parseClass(Person.class).toPrintable());
+    }
+}
+```
+Running this prints something like:   
+   
+Person object internals:
+|OFF|SZ|TYPE DESCRIPTION|
+|---|--|----------------|
+| 0 |    8   |     (mark)|
+| 8  |   4  |      (class)|
+| 12  |  4 |   int age|
+
+Instance size: 16 bytes
+
+
+Notice something interesting.   
+Although the header is 12 bytes, the object is 16 bytes, because of object alignment.
+
+### 3. Compare JDK 26 and JDK 27
+
+Run exactly the same program twice.
+
+JDK 26
+```java
+java \
+        -XX:+UseCompactObjectHeaders \
+        -cp target/classes:$HOME/.m2/repository/org/openjdk/jol/jol-core/0.17/jol-core-0.17.jar \
+com.example.JolExample
+```
+
+JDK 27
+```java
+java \
+        -cp target/classes:$HOME/.m2/repository/org/openjdk/jol/jol-core/0.17/jol-core-0.17.jar \
+com.example.JolExample
+```
+
+You should see something closer to   
+   
+Person object internals:
+|OFF|SZ|TYPE DESCRIPTION|
+|---|--|----------------|
+|0 | 8 | (header)|
+|8 | 4 | int age |
+
+Instance size: 16 bytes
+
+Notice that the header shrank from 12 to **8 bytes**.
+
+The overall object size may or may not shrink depending on alignment in such a small example, but it's a good indication that the JVM is squeezing out the header.
+
+### 4. Print VM information
+
+JOL can also print JVM details:
+```java
+import org.openjdk.jol.vm.VM;
+
+public class Main {
+   void main(String... args) {
+     System.out.println(VM.current().details());
+   }
+}
+```
+
+This shows things like:
+
+* object alignment
+* compressed oops
+* compressed class pointers
+* reference size
+* object header size
+
+### 5. Graph the entire object graph
+
+One of JOL’s nicest features is:
+```java
+System.out.println(
+    GraphLayout.parseInstance(myObject).toFootprint()
+);
+```
+This will print a graph of the entire object graph, including all of its references.
+|COUNT |    AVG |   SUM|
+|------|--------|------|
+|10000 |     24 |  240000   java.lang.String |
+|10000 |     16 |  160000   byte[] |
