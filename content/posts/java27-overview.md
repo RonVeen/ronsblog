@@ -32,7 +32,7 @@ Another round of review for primitives in patterns. Nothing new in this JEP, it 
 [**JEP 533 Structured Concurrency, 7th preview**](/posts/jep533-structured-concurrency)
 The seventh review of the new structured concurrency API.
 
-**JEP 534 Compact Object Headers by Default**   
+[**JEP 534 Compact Object Headers by Default**](/posts/jep435-compact-object-headers-by-default)   
 After proving successful in production for the two releases, Compact Object Headers will now become the default instead of an opt-in.
 
 **JEP 536 JFR In-process Data Redaction**   
