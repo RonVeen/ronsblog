@@ -321,11 +321,10 @@ public class ClassifierConfig {
     @Bean
     public ChatClient ticketClassifierClient(ChatClient.Builder builder) throws IOException {
         return builder
-                .defaultSystemPrompt(classifySystemPrompt.getContentAsString(StandardCharsets.UTF_8))
+                .defaultSystem(classifySystemPrompt.getContentAsString(StandardCharsets.UTF_8))
                 .defaultOptions(ChatOptions.builder()
                         .temperature(0.0)
-                        .maxTokens(512)
-                        .build())
+                        .maxTokens(512))
                 .build();
     }
 }
