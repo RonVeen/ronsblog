@@ -3,20 +3,27 @@ title: "JEP 536 - JFR In-Process Data Redaction"
 description: "Learn how JDK Flight Recorder now redacts secrets from command-line arguments, environment variables, and system properties before they ever hit disk."
 date: 2026-07-06    
 draft: false
-tags: ["Java", "Security", "JFR"]
+tags: ["Java", "Security", "JFR", "JVM"]
 cover:
-  image: "/images/jep436-jfr-in-process-data-redaction.png"
+  image: "/images/jep536-jfr-in-process-data-redaction.png"
   alt: "JEP 536 - JFR In-Process Data Redaction"
 series: ["Java 27"]
 series_order: 7
 categories: ["java"]
 ---
-
 A few years back, someone on my team attached a `.jfr` file to a vendor support ticket. Nothing unusual — Flight Recorder is the go-to tool when you need to show "here's what the JVM was actually doing." Except that recording also happily included the database password we'd passed in as a `-D` system property on startup.
 
 Nobody noticed until the ticket had already left the building.
 
 That's the problem JEP 536 fixes. It's not glamorous. It won't make a conference keynote slide. But if you've ever shipped a JFR recording to a vendor, uploaded one to a shared bucket, or attached one to a bug report, you've probably leaked something you didn't mean to.
+
+## A Quick Refresher: What JFR Actually Is
+
+If you haven't touched it before: JDK Flight Recorder is a diagnostics framework built directly into the JVM. It's been there since JDK 11 (it started life as a commercial JRockit feature before Oracle open-sourced it), and the entire pitch is *low overhead* — you can leave it running in production, all the time, without tanking your throughput.
+
+While it's running, JFR captures events: method-level profiling samples, GC pauses, thread state, allocation hot paths, exceptions, lock contention, I/O — and, relevant to this article, everything about how the process was started. You turn it on with a flag or a `jcmd` command, let it run, and get a `.jfr` file out the other end that you can open in JDK Mission Control or query with the `jfr` CLI tool.
+
+What makes it genuinely useful, beyond "yet another profiler," is that it's *always available*. You don't need to attach a separate agent or restart with different flags when something goes wrong at 3 AM. A short recording, taken right when a service starts misbehaving, can show you exactly which method is burning CPU, which GC pause is stalling requests, or — as we're about to see — exactly how the process was configured when it started. That last part is where things get complicated.
 
 ## What JFR Was Quietly Recording
 
@@ -79,13 +86,19 @@ There are two new sub-options on the existing `-XX:FlightRecorderOptions` flag: 
 If you want to add your own filters on top of the defaults — say, your organization uses `confidential` as a convention — prefix the value with `+`:
 
 ```
-$ java -XX:FlightRecorderOptions:'redact-key=+confidential' -jar app.jar
+$ java -XX:FlightRecorderOptions:'redact-key=+confidential' \
+       -XX:StartFlightRecording=filename=dump.jfr \
+       -jar app.jar
 ```
+
+(`FlightRecorderOptions` only configures the redaction rules — it doesn't start a recording by itself. You still need `-XX:StartFlightRecording`, or a `jcmd <pid> JFR.start` later, to actually capture anything.)
 
 And if you'd rather load a longer list from a file instead of cramming it onto the command line, both options accept an `@filename` reference:
 
 ```
-$ java '-XX:FlightRecorderOptions:redact-argument=@args.txt,redact-key=@keys.txt' -jar app.jar
+$ java '-XX:FlightRecorderOptions:redact-argument=@args.txt,redact-key=@keys.txt' \
+       -XX:StartFlightRecording=filename=dump.jfr \
+       -jar app.jar
 ```
 
 That's the detail I actually like most here. Redaction rules become something you can version-control and reuse across every service in your fleet, instead of a command line nobody wants to touch.
@@ -95,7 +108,9 @@ That's the detail I actually like most here. Redaction rules become something yo
 Sometimes you genuinely want the old behavior — maybe you're debugging locally and you *want* to see the real value. You can turn redaction off entirely:
 
 ```
-$ java -XX:FlightRecorderOptions:'redact-argument=none,redact-key=none' -jar app.jar
+$ java -XX:FlightRecorderOptions:'redact-argument=none,redact-key=none' \
+       -XX:StartFlightRecording=filename=dump.jfr \
+       -jar app.jar
 ```
 
 Worth saying plainly: recordings from JDK 27 onward will differ from what you're used to, since redacted fields now show up as `[REDACTED]` instead of the real value. If a script or dashboard parses JFR output and expects an actual password there for some reason — first, please reconsider that setup — this is the flag that gets you back to the old output.
@@ -116,5 +131,3 @@ Every one of those is a place a secret can end up somewhere it shouldn't. JEP 53
 JEP 536 is targeted for JDK 27, and it's the kind of feature that earns its keep by never showing up in a postmortem. You won't notice it working. You'll only notice the day it *would* have saved you from shipping a password to a support portal.
 
 If you're running JDK 27 and haven't set any `redact-key` or `redact-argument` options, you're already covered by the defaults — that's the whole point. Worth double-checking your own naming conventions against that default list, though. If your team calls its secrets `envelope` or `sealed`, JFR has no way of knowing that.
-
-*This is part 4 of the Java 27 series.*

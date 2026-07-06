@@ -35,7 +35,8 @@ The seventh review of the new structured concurrency API.
 [**JEP 534 Compact Object Headers by Default**](/posts/jep435-compact-object-headers-by-default)   
 After proving successful in production for the two releases, Compact Object Headers will now become the default instead of an opt-in.
 
-**JEP 536 JFR In-process Data Redaction**   
+[**JEP 536 JFR In-process Data Redaction**](/posts/jep536-jfr-in-process-data-redaction)
+Preventing sensitive data to be exposed in JFR recordings by redacting secrets from command-line arguments, environment variables, and system properties before they ever hit disk.
 
 **JEP 537 Vector API, twelfth Incubator**      
 Yet another round of review for the new Vector API, without any new features.
