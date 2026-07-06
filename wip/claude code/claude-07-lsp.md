@@ -11,7 +11,6 @@ series: ["Claude Code"]
 series_order: 7
 description: "How Claude Code uses the Language Server Protocol to understand your code the way your IDE does — with Java and Eclipse JDT LS as the worked example."
 ---
-
 I spent forty-five minutes last week undoing a refactor that should have taken ten.
 
 The change looked simple. Rename `Ticket.getStatus()` to `Ticket.getStatusText()` — we'd added a proper enum-typed `getStatusEnum()` a while back, and the string version needed to be less ambiguous. I asked Claude Code to do the rename across the codebase. Standard stuff.
