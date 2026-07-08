@@ -1,9 +1,9 @@
 ---
-title: "Claude Code - 07 - LSP: Semantic Search for the Whole Codebase"
+title: "Claude Code - 07 - LSP"
 date: 2026-07-08
-draft: true
+draft: false
 cover:
-  image: images/Claude-07-mcp.png
+  image: images/Claude-07-lsp.png
   alt: "LSP: Semantic Search for the Whole Codebase"
 tags: ["Claude Code", "LSP", "Java", "Developer Tools", "AI"]
 categories: ["AI"]
@@ -79,7 +79,7 @@ brew install jdtls
 
 On Windows or if you'd rather manage it manually, download the latest release from the Eclipse JDT LS project and extract it somewhere sensible (`~/tools/jdtls` is a decent default). Add the `bin` directory to your PATH.
 
-One requirement worth flagging: modern jdtls versions need **Java 21 or higher** to run themselves — separate from whatever Java version your project targets. If your default `java` is still 17 or 11, you'll need to point jdtls at a newer JDK explicitly. Verify jdtls starts at all:
+One requirement worth flagging: modern jdtls versions need **Java 21 or higher** to run themselves — separate from whatever Java version your project targets. Old Java version. If your default java is Java 11 or earlier, jdtls will refuse to start. Either upgrade or point jdtls at a specific JDK via its -vm argument. Verify jdtls starts at all:
 
 ```bash
 jdtls --help
@@ -92,7 +92,7 @@ If you get help output (be warned, it's enormous), you're set.
 Claude Code's LSP support works through its plugin system, added in v2.0.74. The official plugin marketplace ships preinstalled and includes an LSP plugin for each supported language, Java among them:
 
 ```bash
-claude plugin install java-lsp@claude-plugins-official
+claude plugin install jdtls-lsp@claude-plugins-official
 ```
 
 Verify:
@@ -104,14 +104,14 @@ claude plugin list
 You should see `java-lsp` listed. If it shows as disabled, enable it:
 
 ```bash
-claude plugin enable java-lsp
+claude plugin enable jdtls-lsp
 ```
 
 If you can't find a Java plugin on the official marketplace, the community [Piebald-AI marketplace](https://github.com/Piebald-AI/claude-code-lsps) covers Java as well as Kotlin, Scala, and a long tail of other languages. Add it with `claude plugin marketplace add Piebald-AI/claude-code-lsps`, then install `java-lsp@piebald-ai`. The mechanics are identical.
 
-### Step 3: enable and verify
+### Step 3: verify
 
-Open `~/.claude/settings.json` (create it if it doesn't exist) and add — or add to — the `enabledPlugins` block:
+Open `~/.claude/settings.json`. It should look like this in the `enabledPlugins` section: 
 
 ```json
 {
@@ -121,11 +121,15 @@ Open `~/.claude/settings.json` (create it if it doesn't exist) and add — or ad
 }
 ```
 
-Restart Claude Code. On startup, watch for these lines in the debug log (`claude --debug` if you're on the CLI):
-
+Restart Claude Code. Open a new terminal and enter this command:
+```bash
+cat ~/.claude/debug/latest
 ```
-LSP server plugin:java-lsp:java initialized
-LSP server instance started: plugin:java-lsp:java
+
+The output should look like this:
+```
+2026-07-08T14:12:29.082Z [DEBUG] Loaded 1 LSP server(s) from plugin: jdtls-lsp
+2026-07-08T14:12:29.082Z [DEBUG] Total LSP servers loaded: 1
 ```
 
 That's the signal that jdtls has spun up. On a fresh workspace, first-start takes fifteen to sixty seconds because jdtls has to build its initial semantic index. Subsequent starts are much faster.
@@ -133,10 +137,20 @@ That's the signal that jdtls has spun up. On a fresh workspace, first-start take
 The most reliable end-to-end test is to ask Claude Code a question that only LSP can answer accurately:
 
 ```
-In this project, find all references to Ticket.getStatus()
+Use LSP to find references to JobAddCommand.run in this project.
 ```
 
 If LSP is working, you'll see a `findReferences` tool call in the log with a precise list of results. If you see Claude reaching for `Grep` instead, LSP isn't wired up — or, more likely, it is, but the model isn't being told to prefer it. Which brings us to the most important part.
+In my situation, the output is:
+
+```
+LSP(operation: "findReferences", symbol: "run", in: "src/main/java/org/veenix/timer/cli/JobAddCommand.java")
+Found 1 reference
+Found 22 new diagnostic issues in 10 files (ctrl+o to expand)
+
+The LSP findReferences for JobAddCommand.run() returned only 1 reference — the declaration itself at JobAddCommand.java:26:17. There are no other in-code references.
+```
+
 
 ### Coaching Claude to actually use LSP
 
@@ -185,27 +199,27 @@ The same three-step pattern works for every LSP-supported language: install the 
 
 **TypeScript / JavaScript.** The language server is `vtsls` (a fork of `typescript-language-server` with better multi-project support). Install with `npm install -g @vtsls/language-server typescript`. Then `claude plugin install typescript-lsp@claude-plugins-official`.
 
-**Python.** The traditional choice is `pylsp`; the newer `ty` server (from the Astral team, same folks who ship Ruff and uv) is significantly faster and worth trying if you're already on Ruff-based tooling. Either works.
+**Python.** Python. The official marketplace ships pyright-lsp, wrapping Microsoft's Pyright — a solid default. The community pylsp and the newer ty server (from the Astral team behind Ruff and uv) are the main alternatives; both work with Claude Code if you'd rather use them.
 
 **Go.** `gopls` is the official server and ships with the Go toolchain. If your Go installation is in your PATH, you already have gopls. Install the plugin.
 
-**Rust, C#, Kotlin, Scala, PHP, Ruby, and others** — all covered by the official or Piebald-AI marketplaces. The CLAUDE.md coaching block from the Java section applies identically to every language. Same instructions, same effect.
+**Rust, C#, Kotlin, Scala, PHP, Ruby, and others** — all covered by the official or Piebald-AI marketplaces.
 
 ## Three Small Sessions Worth Trying
 
 The best way to feel the difference LSP makes is to run a few sessions with it on. Three that reveal the pattern nicely.
+I used this public repo from my GitHub account for the examples: https://github.com/RonVeen/timer2
 
 ### 1. A rename-refactor across a Spring Boot project
 
 Pick a domain method with a common name — `getStatus`, `getName`, `save`, `find`. Something you have on multiple classes. Ask Claude Code:
 
 ```
-Rename Ticket.getStatus to Ticket.getStatusText across the project.
-Use LSP findReferences to identify all call sites first, then apply
-the rename.
+Rename ActivityRepository.findByStatus to ActivityRepository.findByStatusCode  across the project.
+Make sure every call site is updated.
 ```
 
-Watch the tool-call log. Claude should call `findReferences` on `Ticket.getStatus`, get back a precise list of usages, and apply the rename only at those locations. Compare that to what would have happened with grep — hundreds of matches across similar methods on unrelated classes, half of which would end up wrongly modified.
+Watch the tool-call log. Claude should call `findReferences` on `ActivityRepository.findByStatus`, get back a precise list of usages, and apply the rename only at those locations. Compare that to what would have happened with grep — hundreds of matches across similar methods on unrelated classes, half of which would end up wrongly modified.
 
 The proof: run `mvn compile` after. If it builds cleanly, LSP earned its keep. If it doesn't — well, you learned something too.
 
@@ -214,8 +228,25 @@ The proof: run `mvn compile` after. If it builds cleanly, LSP earned its keep. I
 Pick a method whose call graph you don't fully understand — a utility, a callback, something inherited from an older part of the codebase. Ask:
 
 ```
-Find all incoming calls to NotificationService.enqueue and give me a
-one-line summary of what each caller is doing. Use LSP call hierarchy.
+find all classes where the Runnable.run() method is overridden
+```
+
+> **Warning**: Executing this command, I noticed that Claude Code still using Grep for this task. I asked it why, and it responded with this, showing that it can't be trusted all the time and you need to stay vigil:
+```
+Fair criticism — CLAUDE.md says to prefer LSP, and finding implementations of an interface method is squarely a semantic query (goToImplementation), not a text-pattern search. I reached for grep out of habit. Let me actually run the LSP query now so the answer is backed by it rather than by string matching.
+
+⏺ LSP(operation: "goToImplementation", symbol: "Runnable", in: "src/main/java/org/veenix/timer/cli/TimerCommand.java")
+Found 19 implementations across 19 files
+
+The LSP goToImplementation on Runnable returns exactly the same 19 classes — so the earlier answer was correct, but you're right that I should have gotten there via LSP first.
+
+Why I didn't, honestly:
+- I reached for grep "implements Runnable" out of habit because it's a one-shot answer, and then leaned on it more because I was already in a text-searching mindset from the previous rename task.
+- That was the wrong default here. Per CLAUDE.md, "find all classes that override this interface method" is precisely what goToImplementation is for — a semantic query, not a text-pattern one.
+
+Why LSP is actually the better tool for this, not just the prescribed one:
+- grep is textual and brittle. grep "implements Runnable" would miss a class that inherits Runnable transitively (e.g. implements SomeInterface where SomeInterface extends Runnable), a class that extends an abstract base which implements Runnable, or a declaration where implements and Runnable land on different wrapped lines. It would also over-match Runnable appearing in a comment or string.
+- goToImplementation is semantic — it resolves the actual type hierarchy, so it catches those cases and ignores textual noise.
 ```
 
 Claude uses `incomingCalls` to build the tree, then reads only the calling methods (not entire files) to summarise each caller's intent. In a large project, this is the difference between spending twenty minutes tracing method calls manually and getting a structured summary in a single turn.
@@ -225,7 +256,7 @@ Claude uses `incomingCalls` to build the tree, then reads only the calling metho
 Deliberately break something in a scratch branch. Change a method signature and don't update its callers, delete an import, rename a class without renaming its usages. Then ask:
 
 ```
-Check LSP diagnostics across the project and fix the errors that
+Check for any diagnostics across the project and fix the errors that
 have appeared. Explain each fix.
 ```
 
@@ -248,5 +279,3 @@ Once you have the setup dialled in — jdtls running, plugin enabled, CLAUDE.md 
 ---
 
 That's LSP. In Part 8 we shift gears from Claude Code's environment (MCP, LSP) to Claude Code's *strategy*: **agents and subagents**. How Claude Code decides to spin up a specialised worker for part of a task, when doing so pays off, when it doesn't, and how to design tasks that benefit from the pattern.
-
-*This is part 7 of a 10-part series on Claude Code.*
