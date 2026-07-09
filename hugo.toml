@@ -81,3 +81,7 @@ theme = 'PaperMod'
     guessSyntax = true
     lineNos = true
     style = "monokai" # High-contrast style great for Java
+
+[permalinks]
+  [permalinks.page]
+    posts = "/posts/:slug/"
