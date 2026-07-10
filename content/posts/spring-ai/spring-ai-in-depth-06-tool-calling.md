@@ -11,7 +11,6 @@ series_order: 6
 description: "Give the model hands. Let BrightCart's classifier call real Java methods to look up live order data from a database, and learn how the tool-calling loop actually works."
 categories: ["ai", "java"]
 ---
-CCCCCC
 At the end of the last article, BrightCart's classifier did something impressive and something useless, at the same time.
 
 Impressive: it read a chaotic customer rant and pulled out `orderNumber: "BC-48291"` as a clean, typed field. Useless: it had absolutely no idea whether order BC-48291 exists, what's in it, or where it is. It extracted that order number the same way it would extract `BC-99999` or `BC-BANANA` — by pattern-matching text. The model was working entirely from the customer's words, and customers, as we've established, are not a reliable source of truth.
