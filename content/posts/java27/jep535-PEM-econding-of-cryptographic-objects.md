@@ -1,12 +1,12 @@
 ---
 title: "Java 27 - JEP 538 - PEM Encodings of Cryptographic Objects (Third Preview)"
 description: "The PEM API's third preview lands in JDK 27 with real API polish and no more excuses to hand-roll PEM parsing yourself."
-date: 2026-12-31    
+date: 2026-07-20
 draft: true
 tags: ["Java", "Security", "Cryptography"]
 cover:
-image: "/images/jep538-pem-encoding-of-cryptographic-objects.png"
-alt: "JEP 538 - PEM Encodings of Cryptographic Objects (Third Preview)"
+  image: "/images/jep535-pem-encodings.png"
+  alt: "JEP 538 - PEM Encodings of Cryptographic Objects (Third Preview)"
 series: ["Java 27"]
 series_order: 9
 categories: ["java"]

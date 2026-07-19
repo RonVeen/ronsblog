@@ -1,14 +1,14 @@
 ---
 title: "Java 27 - JEP 537 - Vector API, Twelfth Incubator"
 description: "A look at what the Vector API is actually for, and why it's still incubating after twelve rounds."
-date: 2026-12-31    
+date: 2026-07-27
 draft: true
 tags: ["Java", "Security", "Project Panama", "Vector API", "JEP537"]
 cover:
-image: "/images/jep537-vector-api.png"
-alt: "JEP 537 - Vector API, Twelfth Incubator"
+  image: "/images/jep537-vector-api.png"
+  alt: "JEP 537 - Vector API, Twelfth Incubator"
 series: ["Java 27"]
-series_order: 8
+series_order: 10
 categories: ["java"]
 ---
 
