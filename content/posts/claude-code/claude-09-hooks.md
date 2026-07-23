@@ -1,7 +1,7 @@
 ---
 title: "Claude Code - 09 - Hooks: The Deterministic Layer"
-date: 2026-07-22
-draft: true
+date: 2026-07-23
+draft: false
 cover:
   image: "/images/Claude-09-hooks.png"
   alt: "Claude 09 - Hooks: The Deterministic Layer"
@@ -22,7 +22,7 @@ Ten minutes later, I had a small entry in `.claude/settings.json` that ran `mvn 
 
 That's what this article is about. Where subagents (Part 8) are Claude reasoning its way through a specialised task, hooks are the opposite: shell scripts that fire at fixed points in Claude's execution, entirely outside the LLM. They're the deterministic layer. They fight noncompliance, not ignorance — meaning if Claude keeps doing the wrong thing because it doesn't know the right thing, the fix is a skill or a CLAUDE.md; but if Claude knows the right thing and does it inconsistently, a hook is your tool.
 
-By the end of this article you'll have a mental model for when to reach for a hook, worked examples of two hooks I actually run (a git-commit attribution hook and a Spring-specific `@Transactional` guard), a set of short-form recipes covering twelve other hooks worth installing, and a security section that appears earlier and matters more than in any other article in this series.
+By the end of this article you'll have a mental model for when to reach for a hook, worked examples of three hooks I actually run (a git-commit attribution hook, a Spring-specific `@Transactional` guard, and a hook to prevent direct pushes to Gits main branch), a set of short-form recipes covering twelve other hooks worth installing, and a security section that appears earlier and matters more than in any other article in this series.
 
 Hooks run shell commands automatically with your permissions. That's the pitch, and it's also the risk.
 
@@ -40,11 +40,11 @@ That's the whole point. Hooks are what makes Claude's non-deterministic reasonin
 
 Claude Code's reference lists around 30 hook events across the current release. Five cover almost everything you'll actually build:
 
-**PreToolUse** — fires before any tool call (Bash, Write, Edit, Read, WebFetch, MCP tools). This is the blocker. Exit code 2 stops the tool from running. Where you install guardrails.
+**PreToolUse** — fires before any tool call (Bash, Write, Edit, Read, WebFetch, MCP tools). This is the blocker. Exit code 2 stops the tool from running. This is where you install your guardrails.
 
-**PostToolUse** — fires after a tool completes successfully. Cannot undo the tool call. Where you install cleanup: format after write, log after bash, notify after commit.
+**PostToolUse** — fires after a tool completes successfully. Cannot undo the tool call. This is where you install cleanup: format after write, log after bash, notify after commit.
 
-**UserPromptSubmit** — fires when you submit a prompt, before Claude sees it. Where you inject context (current file, current ticket, current branch). Also the layer where you can block a prompt that shouldn't run.
+**UserPromptSubmit** — fires when you submit a prompt, before Claude sees it. Here you inject context (current file, current ticket, current branch). Also the layer where you can block a prompt that shouldn't run.
 
 **SessionStart** — fires once at session start, and on resume, clear, and compact. Where you set up per-session state: warm caches, log the start, inject fresh project facts.
 
@@ -53,6 +53,14 @@ Claude Code's reference lists around 30 hook events across the current release. 
 The other events cover more specific situations (SubagentStop, PreCompact, Notification, PermissionRequest, session-end, and various MCP-specific events). They exist for the day you need them; I've used maybe three of them in production across a year of building hooks.
 
 One useful mental shape: PreToolUse hooks fight the problem before it happens. PostToolUse hooks fix the problem after it happens but before you notice. Stop hooks summarise the problem when Claude thinks it's done. UserPromptSubmit and SessionStart are the context layer — they don't fight problems, they prevent them by giving Claude better information upfront.
+
+The full picture is worth a look. Anthropic's documentation has a diagram of the complete lifecycle, showing every event and how the tool loop, the agentic loop, and the per-turn wrapper nest into each other:
+
+![Claude Code hook lifecycle, showing session-level, turn-level, tool-level, and agentic-loop events](/images/hook-lifecycle.png)
+
+*Diagram: Anthropic Claude Code documentation.*
+
+The five events named above sit inside the agentic loop and the per-turn band — they're where nearly every practical hook you'll ever write ends up. Everything else exists for when you specifically need it: `PreCompact` for state that has to survive context compression, `SubagentStart`/`SubagentStop` for parallel-work bookkeeping, `Notification` for the desktop-alert hook, and so on. Don't try to memorise the whole thing. Refer back to it when you need to work out where in the flow your specific hook would fire.
 
 ## The Configuration
 
@@ -184,8 +192,8 @@ set -euo pipefail
 
 # Read the JSON payload from stdin
 payload=$(cat)
-command=$(echo "$payload" | jq -r '.tool_input.command // ""')
-session_id=$(echo "$payload" | jq -r '.session_id // ""')
+command=$(printf '%s' "$payload" | jq -r '.tool_input.command // ""')
+session_id=$(printf '%s' "$payload" | jq -r '.session_id // ""')
 
 # Only act on git commit commands
 if [[ ! "$command" =~ ^git[[:space:]]+commit ]]; then
@@ -235,7 +243,7 @@ After installing, your `git log` starts looking like this:
 |     Claude-Session-Started: 2026-07-18T09:42:11Z
 ```
 
-Which then makes `git log --grep="Claude-Session-Id"` a working query for *"every AI-assisted commit."* At Belastingdienst scale, that traceability isn't a nice-to-have — it's an audit requirement.
+Which then makes `git log --grep="Claude-Session-Id"` a working query for *"every AI-assisted commit."* Using AI at scale, that traceability isn't a nice-to-have — it's an audit requirement.
 
 ## Full Example 2: The @Transactional Boundary Guard
 
@@ -269,7 +277,7 @@ The script:
 set -euo pipefail
 
 payload=$(cat)
-file_path=$(echo "$payload" | jq -r '.tool_input.file_path // ""')
+file_path=$(printf '%s' "$payload" | jq -r '.tool_input.file_path // ""')
 
 # Only inspect .java files
 if [[ ! "$file_path" =~ \.java$ ]]; then
@@ -277,15 +285,15 @@ if [[ ! "$file_path" =~ \.java$ ]]; then
 fi
 
 # `content` is used by Write, `new_string` by Edit
-new_content=$(echo "$payload" | jq -r '.tool_input.content // .tool_input.new_string // ""')
+new_content=$(printf '%s' "$payload" | jq -r '.tool_input.content // .tool_input.new_string // ""')
 
 # Fast exit if the diff doesn't touch @Transactional at all
-if ! echo "$new_content" | grep -qE '@Transactional\b'; then
+if ! printf '%s' "$new_content" | grep -qE '@Transactional\b'; then
     exit 0
 fi
 
 # Check 1: is the annotated method private?
-if echo "$new_content" | \
+if printf '%s' "$new_content" | \
     awk '/@Transactional/,/[({]/' | \
     grep -qE '\bprivate\b'; then
     echo "@Transactional on a private method has no effect. Spring's proxy-based AOP only intercepts public methods called from outside the class. Move the annotation to a public method, or extract the logic to a separate @Service." >&2
@@ -299,7 +307,7 @@ else
     full="$new_content"
 fi
 
-if ! echo "$full" | grep -qE '@(Service|Component|Repository|Controller|RestController)\b'; then
+if ! printf '%s' "$full" | grep -qE '@(Service|Component|Repository|Controller|RestController)\b'; then
     echo "@Transactional applied to a class without a Spring stereotype (@Service, @Component, @Repository, etc). Spring's proxy AOP will not intercept method calls, and the annotation will have no effect." >&2
     exit 2
 fi
@@ -311,9 +319,87 @@ This is regex-based, not AST-parsed, which means it will occasionally have false
 
 The value proposition of this specific hook is worth naming explicitly. The proxy-AOP quirk is documented — every senior Java developer knows it — and Claude also knows about it in principle. But when Claude is generating a lot of code fast, this specific footgun slips through. The hook codifies institutional knowledge into a check that fires every time, regardless of who is driving the session. That's the pattern hooks are perfect for.
 
+## Full Example 3: Protect the Main Branch
+
+The third full example is universal — every team has a *"don't commit directly to main"* rule — and it turns out to be a hook Claude Code specifically benefits from. Claude in the middle of an agentic loop, working through a multi-step task, will occasionally commit before you'd have told it to; and in a fresh clone, or after a `git checkout main` for reference reading, that first commit can silently land on the wrong branch. A server-side branch protection rule catches this eventually. A local pre-commit hook catches it before the push. This hook catches it before the commit even runs.
+
+The setup: a `PreToolUse` hook on `Bash` that intercepts `git commit` calls, checks the current branch against a configurable list of protected branches, and blocks the commit if there's a match.
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PROJECT_DIR/.claude/hooks/protect-main-branch.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+The script at `.claude/hooks/protect-main-branch.sh`:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+payload=$(cat)
+command=$(printf '%s' "$payload" | jq -r '.tool_input.command // ""')
+cwd=$(printf '%s' "$payload" | jq -r '.cwd // ""')
+
+# Only act on git commit commands (also matches --amend, -a, -m variants)
+if [[ ! "$command" =~ ^git[[:space:]]+commit\b ]]; then
+    exit 0
+fi
+
+# Escape hatch: allow through if the command includes the override marker
+if [[ "$command" =~ ALLOW-MAIN-COMMIT ]]; then
+    exit 0
+fi
+
+# Configurable list of protected branches
+PROTECTED_BRANCHES=("main" "master" "develop")
+
+# Determine the current branch from within the project's cwd
+cd "$cwd" 2>/dev/null || exit 0
+current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")
+
+# Detached HEAD or non-git directory: nothing to protect, allow through
+if [[ -z "$current_branch" || "$current_branch" == "HEAD" ]]; then
+    exit 0
+fi
+
+# Block if we're on a protected branch
+for protected in "${PROTECTED_BRANCHES[@]}"; do
+    if [[ "$current_branch" == "$protected" ]]; then
+        echo "Blocked: cannot commit directly to protected branch '$current_branch'. Create a feature branch first (git checkout -b feature/your-work), or include 'ALLOW-MAIN-COMMIT' in the command to override." >&2
+        exit 2
+    fi
+done
+
+exit 0
+```
+
+Three design choices worth naming.
+
+**The regex is intentionally loose.** `^git[[:space:]]+commit\b` matches `git commit`, `git commit -a`, `git commit -m "..."`, `git commit --amend`, and anything else that starts with the two words. If you find yourself with false negatives — Claude aliasing git in some session-scoped way, for instance — tighten the pattern; for most day-to-day work the loose version does the job.
+
+**The escape hatch is a magic marker, not a config flag.** Same pattern as the destructive-git recipe further down. To commit to main deliberately, Claude (or you, if you're driving) has to include `ALLOW-MAIN-COMMIT` somewhere in the command. Explicit, greppable in your shell history, impossible to forget you did it. Config flags for overrides get left on and forgotten; magic markers stay noisy on purpose.
+
+**Detached HEAD is handled explicitly.** Without the check, `git rev-parse --abbrev-ref HEAD` returns the literal string `"HEAD"` in that state, which doesn't match any protected branch and would allow the commit through — but with the check it's clear the hook considered and dismissed the case. Small, defensive, worth having.
+
+The one thing this hook doesn't replace is a server-side branch protection rule on the git host. Server-side rules catch pushes from any client — a colleague's checkout, a CI job, a script — while a hook only catches Claude Code sessions on your machine. Belt and braces. If you have both, Claude gets a fast, local, informative failure; if you have only the server-side rule, Claude commits, tries to push, and fails opaquely thirty seconds later. Neither is broken, but the hook plus the rule is best.
+
 ## Twelve More Recipes
 
-Everything below is short-form: the shape of the settings.json entry and enough description that you can write the script yourself. All follow the same pattern as the two full examples above — parse the JSON, check a condition, exit 0 or 2 (or emit structured output).
+Everything below is short-form: the shape of the settings.json entry and enough description that you can write the script yourself. All follow the same pattern as the two full examples above — parse the JSON, check a condition, exit 0 or 2 (or emit structured output). Apply the ones you deem useful.
 
 **Auto-format after edit.** `PostToolUse` on `Write|Edit`. Runs the project's formatter after Claude touches a file. For Java, `mvn spotless:apply -DspotlessFiles=<path>`; for a mixed repo, a `format.sh` that dispatches by extension. The single most useful hook to install first.
 
@@ -350,7 +436,7 @@ Everything below is short-form: the shape of the settings.json entry and enough 
 
 **Auto-open new files in IDE.** `PostToolUse` on `Write`. When Claude creates a new file, run `idea "$file_path"` (IntelliJ) or `code "$file_path"` (VS Code) to open it. Small quality-of-life win — you always see new code immediately, without hunting through the file tree.
 
-Between the two full examples above and these twelve, you have a starter set that covers most Java teams' hook needs for a year.
+Between the three full examples above and these twelve, you have a starter set that covers most Java teams' hook needs for a year.
 
 ## When Hooks Are the Wrong Tool
 
@@ -369,5 +455,3 @@ Hooks are for rules that specifically need to apply to Claude Code, that are fas
 ---
 
 That's hooks. Part 10 — the final article in this series — is the capstone: putting CLAUDE.md, skills, custom commands, MCP, LSP, agents, subagents, and hooks together into a single production-grade Claude Code setup for a Spring Boot microservices project. Not a toy demo, not a *"look, I can install six things at once"* showcase. The setup I actually run at work, opinionated choices and all, with the reasoning behind each one.
-
-*This is part 9 of a 10-part series on Claude Code.*
