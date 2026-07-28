@@ -38,10 +38,10 @@ After proving successful in production for the two releases, Compact Object Head
 [**JEP 536 JFR In-process Data Redaction**](/posts/jep536-jfr-in-process-data-redaction)
 Preventing sensitive data to be exposed in JFR recordings by redacting secrets from command-line arguments, environment variables, and system properties before they ever hit disk.
 
-**JEP 537 Vector API, twelfth Incubator**      
+[**JEP 537 Vector API, twelfth Incubator**](/posts/jep537-Vector-api)      
 Yet another round of review for the new Vector API, without any new features.
 
-**JEP 538 PEM Encodings for Cryptographic Objects**      
+[**JEP 538 PEM Encodings for Cryptographic Objects**](/posts/jep535-PEM-econding-of-cryptographic-objects)s      
 Third preview for this API withou any new features.
 
 

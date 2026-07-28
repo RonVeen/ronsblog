@@ -1,9 +1,9 @@
 ---
 title: "Java 27 - JEP 537 - Vector API, Twelfth Incubator"
 description: "A look at what the Vector API is actually for, and why it's still incubating after twelve rounds."
-date: 2026-07-27
-draft: true
-tags: ["Java", "Security", "Project Panama", "Vector API", "JEP537"]
+date: 2026-07-28
+draft: false
+tags: ["Java", "Security", "Project Panama", "Vector API", "JEP537", "Project Valhalla"]
 cover:
   image: "/images/jep537-vector-api.png"
   alt: "JEP 537 - Vector API, Twelfth Incubator"
@@ -18,7 +18,7 @@ That's JEP 537. Twelfth incubation round. Let's talk about what it actually does
 
 ## What the Vector API Is For
 
-If you've never touched it: the Vector API lets you write code that expresses vector computations — operations applied across multiple values at once — and have that reliably compile down to the SIMD instructions your CPU actually supports. AVX on x64, SVE on ARM, whatever the hardware offers.
+If you've never touched it: the Vector API lets you write code that expresses vector computations, operations applied across multiple values at once, and have that reliably compile down to the SIMD instructions your CPU actually supports. AVX on x64, SVE on ARM, whatever the hardware offers.
 
 Normally that kind of optimization is either invisible (the JIT auto-vectorizes a tight loop *if* you're lucky and the pattern is simple enough) or it means dropping into native code with JNI and losing every safety guarantee Java gives you. The Vector API sits in between: you write portable Java, using an API that's explicit about lanes, shapes, and species, and the JVM turns it into real vector instructions where the hardware allows.
 
@@ -34,23 +34,23 @@ for (int i = 0; i < upperBound; i += species.length()) {
 }
 ```
 
-That loop processes a whole vector's worth of floats per iteration instead of one at a time — and it does it without you writing a single line of C.
+That loop processes a whole vector's worth of floats per iteration instead of one at a time, and it does it without you writing a single line of C.
 
 ## What Changed in JDK 27: Nothing
 
-I want to be precise here, because "nothing changed" is doing real work as a description, not just a punchline. JEP 537 re-incubates the Vector API for JDK 27 with no substantial implementation changes since JDK 25. The one item worth mentioning is a version bump — the bundled SLEEF library, used for ARM and RISC-V vector math intrinsics, moved from 3.6.1 to 3.9.0.
+I want to be precise here, because "nothing changed" is doing real work as a description, not just a punchline. JEP 537 re-incubates the Vector API for JDK 27 with no substantial implementation changes since JDK 25. The one item worth mentioning is a version bump, the bundled SLEEF library, used for ARM and RISC-V vector math intrinsics, moved from 3.6.1 to 3.9.0.
 
-That's it. That's the whole changelog. Twelve rounds of incubation — JDK 16 through JDK 27 — and this lap is a dependency bump.
+That's it. That's the whole changelog. Twelve rounds of incubation,JDK 16 through JDK 27, and this lap is a dependency bump.
 
 ## Still Waiting on Valhalla
 
-Here's the actual reason nothing moves: the Vector API is explicitly staying in incubation until the necessary features of Project Valhalla become available as preview features. Once that happens, the plan is to promote it from incubation to preview — the next rung up, not even the finish line.
+Here's the actual reason nothing moves: the Vector API is explicitly staying in incubation until the necessary features of Project Valhalla become available as preview features. Once that happens, the plan is to promote it from incubation to preview, the next rung up, not even the finish line.
 
 Why does a vector math API care about value classes? Because right now, `Vector<E>` instances get special-cased treatment in the JIT compiler just to avoid the object identity and boxing overhead a full-blown heap-allocated object would carry. It works, but it's a workaround the compiler team built specifically to hold this API together until value classes exist to do the job properly. Once Valhalla lands, vectors are expected to become actual value classes, and all that special-casing becomes unnecessary machinery instead of a permanent crutch.
 
-And here's where it gets almost funny: Valhalla is, for the first time in this project's very long life, not vaporware. JEP 401, Value Classes and Objects, was confirmed for integration into OpenJDK in June 2026, targeting JDK 28 — as a preview feature. Twelve years after the project was announced, and the pull request alone is over 197,000 lines across more than 1,800 files, which tells you something about how deep this change actually runs.
+Now, here's the (semi) good news: Value classes, the feature at the heart of Valhalla, is targetted for JDK 28 with JEP 401. Now, of course it will only be a preview feature there, but we are getting closer to "code like a class, work like an int" (which is its informal slogan ). Twelve years after the project was announced, and the pull request alone is over 197,000 lines across more than 1,800 files, which tells you something about how deep this change actually runs.
 
-So: after a decade-plus of "any year now," there's an actual preview with an actual JDK number attached to it. Forgive me if I'm not popping champagne. JDK 28 is a preview, not the finished thing, and it's not even the LTS release — that's JDK 29, a year later. Brian Goetz himself has already pre-emptively told the "they'll never ship it" crowd that they'll simply pivot to "but they didn't ship the important part." He's not wrong. He's basically written the sequel to his own movie before this one's finished.
+So: after a decade-plus of "any year now," there's an actual preview with an actual JDK number attached to it. Forgive me if I'm not popping champagne yet. JDK 28 is a preview, not the finished thing, and it's not even the LTS release, that's JDK 29, a year later. But we definetely have come closer. 
 
 ## What This Means for the Vector API
 
@@ -58,4 +58,6 @@ Practically: nothing changes for you today. Keep using the Vector API in `jdk.in
 
 But for the first time in a long while, the "waiting on Valhalla" line at the bottom of this JEP has an actual date behind it instead of just vibes. If JDK 28's preview holds up, the Vector API's thirteenth incubation round might finally have something to report other than a library version number.
 
-I've been writing "it's waiting on Valhalla" in Java release notes for years now. I'm not holding my breath — but for the first time, I'm at least glancing at the calendar.
+I've been writing "it's waiting on Valhalla" in Java release notes for years now. I'm not holding my breath, but for the first time, I'm at least glancing at the calendar.
+
+In case you're interested in a more deep dive into values classes as defined by Project Valhall, the watch this space. I'm planning on publishing an article on it soon, very soon (because let's face it, I had twelve years to work the draft ... ;-) 
