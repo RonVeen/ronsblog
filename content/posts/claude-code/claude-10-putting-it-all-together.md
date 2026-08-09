@@ -412,5 +412,3 @@ That's ten articles. If I could go back and tell my past self one thing about bu
 The ten articles in this series each covered a specific tool. The point of this article was to show what happens when the tools interact. The reason to build a mature Claude Code setup isn't to have a lot of files under `.claude/`. It's to reach the point where sitting down at a session feels less like configuring a tool and more like sitting down at your desk.
 
 Thanks for reading the series. If you build a setup you're proud of — or if there's a piece I got wrong or an interaction I missed — I'd genuinely like to hear about it.
-
-*This is part 10 of a 10-part series on Claude Code.*
