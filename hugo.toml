@@ -9,14 +9,18 @@ theme = 'PaperMod'
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowReadingTime = true
+  hideAuthor = true
   cover.relative = false
   cover.hiddenInList = false    # ← add this
   cover.linkFullImages = true   # ← add this
+  # Set to true to replace list summary with reading time (e.g., "3 min read")
+  listReplaceSummaryWithReadingTime = false
+  [params.author]
+    name = "Ron Veen"
+    email = "ronveen@gmail.com"
 
 [taxonomies]
   series = "series"
-    # Set to true to replace list summary with reading time (e.g., "3 min read")
-    listReplaceSummaryWithReadingTime = true
   category = "categories"
 
 [outputs]
