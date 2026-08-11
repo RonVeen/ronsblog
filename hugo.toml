@@ -18,6 +18,11 @@ theme = 'PaperMod'
   [params.author]
     name = "Ron Veen"
     email = "ronveen@gmail.com"
+  [params.assets]
+    favicon = "favicon.ico"
+    favicon16x16 = "favicon-16.png"
+    favicon32x32 = "favicon-32.png"
+    apple_touch_icon = "favicon-180.png"
 
 [taxonomies]
   series = "series"
