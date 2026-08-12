@@ -1,7 +1,7 @@
 ---
 title: "Claude Code - 10 - Putting It All Together: A Production Setup for a Spring Boot Service"
-date: 2026-07-29
-draft: true
+date: 2026-08-12
+draft: false
 cover:
   image: "/images/Claude-10-putting-it-all-together.png"
   alt: "Claude 10 - Putting It All Together"
