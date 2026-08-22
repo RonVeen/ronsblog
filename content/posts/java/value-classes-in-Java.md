@@ -1,15 +1,14 @@
 ---
 title: "Value Classes are coming to Java"
-date: 2026-06-30
-draft: true
+date: 2026-08-22
+draft: false
 tags": ["Java", "JVM", "Data-Oriented Programming", "JEP 401", "Value Classes", "Project Valhalla"]
 cover:
-  image: "/images/value-classes.png"
+  image: "/images/value-classes-in-java.png"
   alt: "Value Classes in Java"
 description: "Learn what value classes are, why == finally stops lying to you about LocalDate, and where the JVM gets its speed boost from."
 categories: ["java"]
 ---
-
 I once spent a good twenty minutes debugging a failing test before realizing the bug was `d1 == d3` instead of `d1.equals(d3)`. Both were `LocalDate.of(1996, 1, 23)`. Both represented the exact same date. And Java looked me dead in the eye and said "false."
 
 That's not a bug in `LocalDate`. That's just what happens when every object in Java carries an identity, whether it needs one or not. JEP 401 is the JEP that finally lets you opt out.
@@ -137,4 +136,7 @@ Bad candidates: anything that needs stable identity, synchronization, mutable li
 
 This is a preview feature, so you'll need a recent early-access build and the `--enable-preview` flag — don't expect `public value class` to compile on whatever JDK you've got installed today. The integration into OpenJDK mainline is targeting JDK 28, and it's apparently a 197,000-line change, so "still settling" is an understatement.
 
-If you've been burned by an unexpected `false` from `==` on something that was obviously the same value, this is the JEP that's finally coming for that bug. Go grab the Valhalla early-access build and run your own `Point` and `Money` examples through it — seeing the JVM treat them as values instead of objects is the kind of thing that's more convincing in person than on a blog.
+If you've been burned by an unexpected `false`
+
+## Follow Up
+I'll be writing a more detailled post about JEP-401 soon, keep watching this space!
