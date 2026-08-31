@@ -15,6 +15,11 @@ Java 27 is currently in [rampdown phase one](https://openjdk.org/jeps/3#rdp-1) a
 The release will consist of 9 [JEPs](https://openjdk.org/jeps/1).
 
 ## What is in there?
+
+![Overview of Java 27 JEPs](/images/java27-jep-overview.png)
+
+
+
 Java 27 will consist of these JEPs.
 
 [**JEP 523 G1 becomes the default GC everywhere**](/posts/jep523-g1-default-everywhere/)   
