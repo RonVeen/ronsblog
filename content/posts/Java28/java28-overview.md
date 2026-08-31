@@ -1,13 +1,13 @@
 ---
-title: "Java 27 - Overview"
-date: 2026-03-17
+title: "Java 28 - Overview"
+date: 2026-08-31
 draft: false
-tags: ["Java", "Java 27"]
-series: ["Java 27"]
+tags: ["Java", "Java 28"]
+series: ["Java 28"]
 series_order: 1
 cover:
-  image: "/images/java27-series.png"
-  alt: "Java 27"
+  image: "/images/java28.png"
+  alt: "Java 28"
 
 ---
 
