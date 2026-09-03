@@ -3,7 +3,7 @@ title: "Java 28"
 description: "All posts for the upcoming Java 28 release."
 weight: 65
 cover:
-  image: "/images/java28.png"
+  image: "/images/java28-series.png"
   alt: "Java 28 overview"
 ---
 
