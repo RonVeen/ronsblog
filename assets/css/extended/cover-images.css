@@ -1,0 +1,17 @@
+/* Cover images on individual blog posts */
+.post-single > .entry-cover {
+    width: 50%;
+    margin: 0 auto var(--gap);
+}
+
+.post-single > .entry-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 700px) {
+    .post-single > .entry-cover {
+        width: 100%;
+    }
+}
