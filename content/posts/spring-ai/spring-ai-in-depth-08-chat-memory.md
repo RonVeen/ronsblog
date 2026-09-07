@@ -1,7 +1,7 @@
 ---
 title: "Spring AI Series: 8-Chat Memory and Conversation State"
-date: 2026-08-14
-draft: true
+date: 2026-09-07
+draft: false
 tags: ["Java", "Spring Boot", "AI", "Spring AI"]
 cover:
   image: "/images/spring-ai-08-chat-memory.png"
@@ -16,9 +16,9 @@ Everything BrightCart has built so far has a peculiar kind of amnesia. Each requ
 
 For one-shot ticket processing, that's fine. But watch what happens the moment a support agent tries to actually *work* a ticket through the assistant:
 
-> **Agent:** Look up order BC-48291 and tell me what's going on.
-> **Assistant:** Order BC-48291 (Deluxe Espresso Machine) is marked DELIVERED but the customer says it never arrived. Looks like a delivery discrepancy.
-> **Agent:** Okay, is that customer a repeat buyer?
+> **Agent:** Look up order BC-48291 and tell me what's going on.  
+> **Assistant:** Order BC-48291 (Deluxe Espresso Machine) is marked DELIVERED but the customer says it never arrived. Looks like a delivery discrepancy.   
+> **Agent:** Okay, is that customer a repeat buyer?   
 > **Assistant:** Which customer? I don't have any order or customer in context.
 
 And there it is. The assistant looked up the customer's order *one sentence ago* and has already forgotten it exists.
@@ -33,7 +33,7 @@ Source, as always, in the [GitHub repository](https://github.com/RonVeen/spring-
 
 Before we add memory, you need to understand a truth that trips up nearly everyone new to this. It's the opposite of how the tools *feel*.
 
-> **Concept Primer: The Model Is Stateless**
+> **Concept Primer: The Model Is Stateless**   
 > When you chat with an AI assistant and it "remembers" what you said three messages ago, the model itself is remembering nothing. A large language model is a pure function: text in, text out, no memory between calls. Each request is completely independent. The illusion of a continuous conversation is created entirely by the *application*, which keeps a record of everything said so far and re-sends the whole history with every new message. The model reads that history fresh each time, as if for the first time, and responds. "Memory" is not something the model has. It's something you feed it, over and over, on every single call.
 
 Sit with that for a second, because it reframes everything. When ChatGPT appears to remember your name from earlier in a chat, what's actually happening is that your name is being re-transmitted, in full, with every message you send. The model has no persistent state. It's Groundhog Day on every call. The model wakes up, reads the entire conversation so far, answers, and forgets it all again.
@@ -50,7 +50,7 @@ Spring AI splits chat memory into two distinct responsibilities, and keeping the
 
 **`ChatMemoryRepository`** is the *storage*. It decides where messages physically live. A `ConcurrentHashMap`? A relational database? Redis? That's persistence, a completely separate concern from policy.
 
-The separation is deliberate, and it's the kind of clean seam I wish more libraries bothered with. You can pair any policy with any storage: a sliding-window policy backed by an in-memory map for tests, or that same window policy backed by a database for production. Change where memory is stored without touching how much of it you keep, and the other way around. This is the behavior we as developers have come to know from other Spring project, and for AI memory, this is nothing different.
+The separation is deliberate, and it's the kind of clean seam I wish more libraries bothered with. You can pair any policy with any storage: a sliding-window policy backed by an in-memory map for tests, or that same window policy backed by a database for production. Change where memory is stored without touching how much of it you keep, and the other way around. This is the behavior we as developers have come to know from other Spring projects, and for AI memory, this is nothing different.
 
 By default, Spring AI auto-configures a `MessageWindowChatMemory` backed by an `InMemoryChatMemoryRepository`, which is a `ConcurrentHashMap` keyed by conversation ID. That's fine for experiments, but it evaporates on restart and doesn't survive across multiple application instances. Since BrightCart already has an H2 database from article 6, we'll go straight to persistent JDBC storage and skip the in-memory detour. Worth knowing the in-memory default is what you're replacing, though.
 
