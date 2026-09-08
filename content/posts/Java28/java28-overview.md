@@ -6,12 +6,11 @@ tags: ["Java", "Java 28"]
 series: ["Java 28"]
 series_order: 1
 cover:
-  image: "/images/java28.png"
+  image: "/images/java28-series.png"
   alt: "Java 28"
-
 ---
 
-Java 28 is due be launched in Mart 2027
+Java 28 is due be launched in March 2027
 At this moment, these are the JEPs that are going in this release.
 
 

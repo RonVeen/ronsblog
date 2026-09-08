@@ -52,11 +52,11 @@ theme = 'PaperMod'
     name = "Series"
     url = "/series/"
     weight = 500
-  [[menu.main]]
-    identifier = "shorts"
-    name = "Shorts"
-    url = "/shorts/"
-    weight = 600
+#  [[menu.main]]
+#    identifier = "shorts"
+#    name = "Shorts"
+#    url = "/shorts/"
+#    weight = 600
   [[menu.main]]
     identifier = "books"
     name = "My Books"
