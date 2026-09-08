@@ -400,4 +400,3 @@ But `SimpleVectorStore` is a toy, and I mean that with affection. It holds every
 
 In article 10 we make the storage real: pgvector, Qdrant, Redis, and the rest. We'll look at what actually distinguishes the vector store options, how to configure them in Spring AI, and how to write ingestion and retrieval code that doesn't care which one you picked. The pipeline stays the same. The storage grows up.
 
-*This is part 9 of a 13-part series.*
