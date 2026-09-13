@@ -1,7 +1,7 @@
 ---
 title: "JEP 539: Strict Field Initialization in the JVM (Preview)"
-date: 2026-09-10
-draft: true
+date: 2026-09-13
+draft: false
 tags: ["Java", "JEP", "JVM", "Project Valhalla", "Java 28"]
 cover:
    image: "/images/jep539-strict-initialization-in-jvm.png"

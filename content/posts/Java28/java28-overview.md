@@ -1,7 +1,7 @@
 ---
 title: "Java 28 - Overview"
-date: 2026-09-12
-draft: true
+date: 2026-09-13
+draft: false
 tags: ["Java", "Java 28"]
 series: ["Java 28"]
 series_order: 1
