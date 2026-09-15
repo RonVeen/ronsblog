@@ -11,8 +11,8 @@ cover:
 
 ---
 
-Java 27 is currently in [rampdown phase one](https://openjdk.org/jeps/3#rdp-1) and will reach general availability on September, 15th, 2026.
-The release will consist of 9 [JEPs](https://openjdk.org/jeps/1).
+Java 27 was released on September, 15th, 2026.
+The release consists of 9 [JEPs](https://openjdk.org/jeps/1).
 
 ## What is in there?
 
@@ -20,7 +20,9 @@ The release will consist of 9 [JEPs](https://openjdk.org/jeps/1).
 
 
 
-Java 27 will consist of these JEPs.
+Java 27 consists of these JEPs.
+
+[**Overview**](/posts/java27-all-in-one/)
 
 [**JEP 523 G1 becomes the default GC everywhere**](/posts/jep523-g1-default-everywhere/)   
 Simplifies Java's garbage collection behavior by making the G1 Garbage Collector the default choice across all hardware, removing the old rule where small or single-core machines would automatically fall back to the Serial collector.
