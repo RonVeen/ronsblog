@@ -17,9 +17,11 @@ So let's zoom out. If you've been following along JEP by JEP, some of this will 
 
 One thing worth saying up front: Java 27 is not an LTS release. JDK 29 is, a year from now. That colors how I'd recommend you treat some of what's below, especially the previews. But a handful of these changes will matter to you the moment you upgrade, LTS or not.
 
-Here's the full list, roughly in the order I'll walk through them:
+Here's the full list, roughly in the order I'll walk through them:   
 
-| 523, G1 becomes the default GC on all hardware, Final
+| JEP | Feature Description | Status |
+| :--- | :--- | :--- |
+| 523 | G1 becomes the default GC on all hardware | Final |
 | 534 | Compact object headers, 12 bytes to 8, on by default | Final |
 | 527 | Post-quantum key exchange for TLS 1.3 | Final |
 | 536 | JFR redacts secrets before writing to disk | Final |
@@ -27,7 +29,7 @@ Here's the full list, roughly in the order I'll walk through them:
 | 533 | Structured Concurrency, sharper exception typing | Preview (7th) |
 | 532 | Primitive types in `switch`, `instanceof`, patterns | Preview (5th) |
 | 531 | Lazy Constants, plus `Set.ofLazy` | Preview (3rd) |
-| 537 | Vector API, SIMD math in portable Java | Incubator (12th) |
+| 537 | Vector API, SIMD math in portable Java | Incubator (12th) |   
 
 Four of these ship as finished, default-on behavior. Five are still previews or incubators in various stages of "almost there." I'll take them roughly in that order too, starting with the two that change your production systems without you lifting a finger.
 
