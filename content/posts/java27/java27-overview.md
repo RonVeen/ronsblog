@@ -16,13 +16,13 @@ The release consists of 9 [JEPs](https://openjdk.org/jeps/1).
 
 ## What is in there?
 
-![Overview of Java 27 JEPs](/images/java27-jep-overview.png)
-
+![Overview of Java 27 JEPs](/images/java27-infographic-grid-1.png)
 
 
 Java 27 consists of these JEPs.
 
-[**Overview**](/posts/java27-all-in-one/)
+[**Overview**](/posts/java-27-what-actually-made-the-cut/)
+Sums up all the changes in this release, a summary of the articles below.
 
 [**JEP 523 G1 becomes the default GC everywhere**](/posts/jep523-g1-default-everywhere/)   
 Simplifies Java's garbage collection behavior by making the G1 Garbage Collector the default choice across all hardware, removing the old rule where small or single-core machines would automatically fall back to the Serial collector.
