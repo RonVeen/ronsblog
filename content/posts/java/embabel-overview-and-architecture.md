@@ -1,7 +1,7 @@
 ---
 title: "Embabel Overview and Architecture"
-date: 2026-09-09
-draft: true
+date: 2026-09-23
+draft: false
 tags: ["Java", "AI", "Spring-AI", "Embabel"]
 cover:
   image: "/images/embabel.png"
@@ -56,6 +56,7 @@ It's a Spring citizen throughout: `@Agent` is a stereotype annotation built on `
 One trade-off worth naming: teams should think carefully about action pre- and post-conditions — a poorly specified condition can lead the planner somewhere unintended. The framework provides a testing approach that lets you mock blackboard state and assert on which actions were planned.
 
 ## 4. Worked example: a blog-writing agent
+The full source code for the article can be found on [git](https://github.com/RonVeen/embabel-blog-agent) account
 
 ### 4.1 Setup (Embabel 1.0)
 
@@ -69,18 +70,30 @@ Spring Boot 3.5.x, Java 21 baseline, Spring AI 1.1.7 under the hood. As of 1.0, 
 
 <dependencies>
     <dependency>
-        <groupId>com.embabel.agent</groupId>
-        <artifactId>embabel-agent-starter-shell</artifactId>
-        <version>${embabel.version}</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
     <dependency>
         <groupId>com.embabel.agent</groupId>
-        <artifactId>embabel-agent-starter-openai</artifactId>
+        <artifactId>embabel-agent-api</artifactId>
+        <version>${embabel.version}</version>
+    </dependency>
+
+    <!-- Base agent engine & platform autoconfiguration -->
+    <dependency>
+        <groupId>com.embabel.agent</groupId>
+        <artifactId>embabel-agent-platform-autoconfigure</artifactId>
+        <version>${embabel.version}</version>
+    </dependency>
+
+    <!-- OpenAI model integration without shell -->
+    <dependency>
+        <groupId>com.embabel.agent</groupId>
+        <artifactId>embabel-agent-openai-autoconfigure</artifactId>
         <version>${embabel.version}</version>
     </dependency>
 </dependencies>
-
-<!-- no <repositories> block needed — resolves from Maven Central -->
 ```
 
 > Note: 1.0 does **not** yet support Spring Boot 4 / Spring AI 2.0. That's targeted for Embabel 2.0. A community workaround exists (a manual `Jackson2ObjectMapperBuilder` bean to bridge Jackson 2 → 3) but it's a stopgap, not a recommendation, for anyone starting fresh.
@@ -153,9 +166,9 @@ Model routing per role, configured externally rather than hard-coded:
 ```yaml
 embabel:
   models:
-    default-llm: gpt-4.1-mini
-    llm:
-      reviewer: gpt-4.1
+    default-llm: gpt-5.4-mini
+    llms:
+      reviewer: gpt-5.4
 ```
 
 ### 4.4 How the planner reasons about it
@@ -248,11 +261,35 @@ public class BlogAgentApplication {
     }
 }
 ```
-
+### Taking it for a spin
+As I am writing this article while on an airplane on my way to the [WeAreDevelopers conference](https://www.wearedevelopers.com/world-congress-north-america) is San Jose California, it seems only suitable that I ask our setup to write a post about the presentation that I will give there.
+Here is my prompt:
 ```bash
 curl -X POST http://localhost:8080/api/v1/blog/write \
   -H "Content-Type: application/json" \
-  -d '{"topic": "How to get started with Spring Boot"}'
+  -d '{"topic": "Write a little story about the presentation of Ron Veen at We Are Developers conference in San Jose California in 2026"}'
+  ```
+
+It comes with this response, which was remarkably positive about my talk.
+```json
+{
+  "title": "Improved Blog Post Review: Ron Veen at WeAreDevelopers San Jose 2026",
+  "content": "In 2026, WeAreDevelopers San Jose brought together a wide mix of people from across the software world: experienced engineers, curious beginners, startup founders, and students all eager to learn what was next in development. Among the many sessions, Ron Veen’s talk stood out for a simple reason: it felt less like a formal presentation and more like practical advice from someone who understands how real teams build software.\n\nRon opened with a message that immediately resonated: great software development is not about choosing the most complex tools. It is about making clear, reliable decisions that help teams move faster without adding unnecessary confusion. For early-career developers especially, that was a reassuring and valuable point. Rather than relying on buzzwords or abstract theory, Ron used relatable examples from real projects, which made the session easy to follow and genuinely useful.\n\nHe explored several common challenges developers run into as projects grow, including messy code, unclear ownership, and systems that become harder to maintain over time. What made the talk effective was its focus on small, practical habits instead of overwhelming frameworks or rigid rules. He showed how writing cleaner functions, choosing clearer names, and testing important parts of an application early can prevent bigger problems later.\n\nOne of the strongest parts of the session was Ron’s emphasis on teamwork. He pointed out that even highly capable developers can slow progress when communication breaks down. His advice was straightforward: ask questions early, document key decisions, and write code with the next reader in mind. For beginners, this was an important reminder that software development is not just about making something work. It is also about making that work understandable and sustainable for others.\n\nRon also shared a refreshingly practical approach to learning new technologies. His advice was to start small, build something simple, and improve it step by step. Instead of trying to master every tool or trend at once, he encouraged the audience to pick one concept and apply it in a real project. That approach makes learning more concrete, less intimidating, and far more memorable.\n\nThe atmosphere in the room reflected how well the message landed. People were taking notes, nodding along, and clearly responding to the talk’s direct and grounded style. Ron did not try to impress the audience with complexity. He impressed them by being useful.\n\nBy the end of the session, the core takeaway was unmistakable: strong development habits matter more than flashy shortcuts. That is an encouraging message, especially for beginners. It means you do not need to know everything before you begin. You need to understand the fundamentals, practice them consistently, and build with clarity.\n\nFor attendees leaving the hall in San Jose, Ron Veen’s presentation felt like the kind of session that remains valuable long after a conference ends. It offered practical advice, real-world perspective, and a clear path forward for anyone who wants to become a better developer one step at a time.",
+  "feedback": "Strong draft overall: clear, accessible, and well-structured for a beginner audience. The tone is friendly, and the main theme—clarity over complexity—comes through consistently. To improve it, I tightened repetition, made the opening more engaging, varied sentence structure, and gave the piece a slightly more polished blog style. I also reduced generic phrasing and strengthened transitions so the post reads more smoothly from start to finish.",
+  "seo": {
+    "metaDescription": "Ron Veen’s WeAreDevelopers San Jose 2026 talk shared beginner-friendly advice on clean code, teamwork, and practical software habits.",
+    "keywords": [
+      "Ron Veen",
+      "WeAreDevelopers San Jose 2026",
+      "beginner-friendly developer talk",
+      "software development",
+      "clean code",
+      "team communication",
+      "developer conference"
+    ],
+    "slug": "ron-veen-wearedevelopers-san-jose-2026-beginner-friendly-story"
+  }
+}
 ```
 
 ### What's happening
@@ -285,23 +322,9 @@ PublishedPost returned as JSON
 ```
 
 ### Before production
-
 1. **Synchronous by default.** Multiple LLM calls can take a while — long enough to risk an HTTP timeout. `AgentInvocation` has `invokeAsync()`, returning a `CompletableFuture<PublishedPost>`, so you can return a job id immediately and poll separately.
 2. **No auth or rate limiting here.** Add a `@ControllerAdvice` for agent-execution failures, and something to stop repeated calls from running up the model bill.
-3. **Version drift.** The API surface moved fast pre-1.0 (`0.2.0` through `0.4.0-SNAPSHOT`). Double-check package paths against whatever version you pull in.
 
-## 6. Implications of the 1.0 GA release (July 20, 2026)
 
-**Doesn't affect the code above.** `@Agent`, `@Action`, `@AchievesGoal`, `AgentPlatform`, `AgentInvocation` are unchanged. The theme of 1.0 is maturity: experimental APIs — including the RAG APIs — were promoted to production status, and deprecated methods were removed before the stability guarantee kicked in.
-
-**Does affect the build setup:**
-
-- Now on **Maven Central** on stable coordinates — no custom repository blocks needed.
-- **Dedicated starters per model provider** (`embabel-agent-starter-openai`, `-anthropic`, `-ollama`, `-bedrock`, etc.) instead of a generic Spring AI starter alongside the Embabel one.
-- Built on **Spring AI 1.1.7 and Spring Boot 3.5.x**, with a **Java 21 baseline** — not Spring Boot 4 or Spring AI 2.0. That jump is targeted for Embabel 2.0; there's already a 2.0 development line in the repo.
-
-**Other notable 1.0 additions** (not used in this example, but worth knowing about): generic media and document support (multimodal inputs), MCP server health exposed via Spring Boot Actuator, chat message events, configurable planner behavior when multiple goals share a return type, and new model integrations (Z.ai GLM, updated DeepSeek names) alongside the existing OpenAI, Anthropic, Bedrock, Google GenAI, Ollama, and LM Studio options.
-
----
-
-*Sources: [Embabel GitHub](https://github.com/embabel/embabel-agent), [Embabel 1.0 release notes](https://github.com/embabel/embabel-agent/releases/tag/v1.0.0), Dan Vega's [Embabel First Look](https://www.danvega.dev/blog/embabel-first-look) and [Embabel 1.0 Is Here](https://www.danvega.dev/blog/embabel-1-0-ga), [BootcampToProd's REST API walkthrough](https://bootcamptoprod.com/embabel-framework-rest-api-agent/), [InfoQ coverage](https://www.infoq.com/news/2026/08/embabel-1/).*
+### Conclusion
+I think Embabel looks very promising. The Actions that can be loosely defined and then end up being wired together automagically feels very familiar to Spring developers. If you have followed my [Spring AI series](https://ronveen.com/series/spring-ai-in-depth/) then you might feel that you want to incorporate this into it.
