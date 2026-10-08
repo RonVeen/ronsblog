@@ -1,10 +1,10 @@
 ---
 title: "Spring AI Series: 9-RAG End to End"
-date: 2026-06-26
-draft: true
+date: 2026-10-08
+draft: false
 tags: ["Java", "Spring Boot", "AI", "Spring AI"]
 cover:
-  image: "/images/spring-ai-09-rag.png"
+  image: "/images/spring-ai-09-rag-end-to-end.png"
   alt: "Spring AI Series: RAG End to End"
 series: ["Spring AI in Depth"]
 series_order: 9
@@ -12,7 +12,7 @@ description: "Build a full RAG pipeline in Spring AI: ingest BrightCart's docume
 categories: ["ai", "java"]
 ---
 
-[[RON: personal opener needed here. Something concrete about the first time you watched an LLM confidently make up an answer, a hallucinated API method, a made-up config property, a policy that didn't exist. The rest of the intro pivots off that "it lied to my face" moment, so a real one lands much harder than anything I'd invent.]]
+Imagine a smart intern who knows everything by heart (the LLM) versus the same intern who, for every tricky question, first checks the internal wiki and docs (RAG). Without RAG, the intern confidently says something that sounds right but might be off; with RAG, they flip to the correct policy first and then quote exactly what it says.   
 
 BrightCart's assistant has come a long way. It holds a conversation, it looks up real orders, it guards against hostile input. But there's a question it still faceplants on, and it's one customers ask constantly:
 
@@ -180,7 +180,38 @@ public class RagConfig {
 }
 ```
 
-Notice `EmbeddingModel` gets injected without any fuss. It was auto-configured the moment you added the Anthropic starter back in article 2, the same way the chat model was. One dependency, two models, both wired up for you.
+Now, one thing that trips people up here, and it tripped me up too. That RagConfig needs an EmbeddingModel bean, and if you're using Anthropic as your chat provider, you don't have one. Anthropic doesn't offer an embeddings API at all, so the Anthropic starter provides a chat model and nothing else. Run the app as-is and Spring fails fast:
+```
+Parameter 0 of method vectorStore in RagConfig required a bean of type
+'org.springframework.ai.embedding.EmbeddingModel' that could not be found.
+```
+
+Embedding is a separate capability from chat, and it needs its own provider. The simplest fix is to add OpenAI purely for embeddings, alongside Anthropic for chat. Add the OpenAI starter:
+```xml
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-openai</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-vector-store-advisor</artifactId>
+        </dependency>
+```
+Then tell Spring AI to use OpenAI for embeddings, and give it your key:
+```
+spring.ai.openai.api-key=${OPENAI_API_KEY}
+spring.ai.model.embedding=openai
+spring.ai.model.chat=anthropic
+```
+That spring.ai.model.embedding=openai line is the important one. With both an Anthropic and an OpenAI starter on the classpath, it tells Spring AI which provider owns embeddings, so you get an OpenAiEmbeddingModel bean and Anthropic stays your chat model. Chat from one provider, embeddings from another, wired by configuration.
+
+If you'd rather not add a second paid provider, Ollama does embeddings locally and free, mirroring the option from article 2. Add the Ollama starter, pull an embedding model with ollama pull nomic-embed-text, and configure:
+```
+spring.ai.ollama.embedding.model=nomic-embed-text
+spring.ai.model.embedding=ollama
+spring.ai.model.chat=anthropic
+```
+One trap to avoid while you're here: don't try to fix this by hand-rolling your own @Bean EmbeddingModel. Spring AI's auto-configuration won't back off for a bean declared against the EmbeddingModel interface, so you end up with two beans and a NoUniqueBeanDefinitionException. Select the provider with the spring.ai.model.embedding property instead, and let auto-configuration do the rest.
 
 Start the app and the logs show the pipeline running:
 
@@ -305,9 +336,24 @@ curl -X POST http://localhost:8080/api/knowledge/ask \
 ```
 
 ```
-Damaged or defective items can be returned within 14 days of delivery for a
-full refund or replacement. You'll need to provide photographic evidence of
-the damage, and BrightCart covers the return shipping cost for damaged items.
+# BrightCart's Return Policy for Damaged Items
+
+If an item arrives damaged or defective, here's what you need to know:
+
+**Return Window:** You have **14 days from delivery** to return the item.
+
+**What You Get:** You can choose either a **full refund** or a **replacement**.
+
+**What's Required:** You'll need to provide **photographic evidence of the damage**.
+
+**Return Shipping:** BrightCart covers the return shipping cost for damaged items.
+
+**How to Start the Process:**
+1. Contact our support team with your order number and photos of the damage
+2. We'll issue a prepaid return label within one business day
+3. Once we receive your item at our warehouse, refunds are processed within 5 business days
+
+Is there anything else you'd like to know about our return policy?
 ```
 
 Fourteen days, photo evidence, free return shipping. Every detail lifted straight from the policy document, not averaged from the model's training data. No "typically," no "most retailers." That's the difference between a model guessing and a model reading.
@@ -377,7 +423,13 @@ public class KnowledgeChatConfig {
 Ask about the student discount again, and now:
 
 ```
-I don't have that information in BrightCart's documentation.
+I don't have information about student discounts in the context provided. The available documentation covers BrightCart's shipping terms, return policy, and product manuals, but doesn't include details about discount programs.
+
+To find out if BrightCart offers a student discount, I'd recommend:
+- Checking the BrightCart website directly
+- Contacting our customer support team
+
+They'll be able to provide you with the most current information about any available discounts
 ```
 
 That's the answer you want. A support assistant that says "I don't know" is infinitely more useful than one that confidently makes things up, because the second kind you can never trust, and an assistant you can't trust is just a liability with good grammar. This single prompt template is the line between a RAG demo and a RAG system.
