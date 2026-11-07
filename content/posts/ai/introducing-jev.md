@@ -74,6 +74,7 @@ curl https://api.typesafe.ai/v1/models \
 
 That hits `GET /v1/models` and lists what your account can call. If it returns JSON instead of a 401, you're in.
 
+> The source code to this article can be downloaded from my [github](https://github.com/RonVeen/Introducing-Jev). 
 ## Calling Jev From Java
 
 There's no official Java SDK, only Python and JavaScript, with the raw HTTP API as the documented path for everyone else. That's fine, and for a standalone program you can actually run, it keeps things simple: a single POST against `POST /v1/systemone`, handled by Java's built-in `HttpClient`. No framework, no Spring context, just a small Maven project with Jackson for the JSON. Here's the complete `pom.xml`:
