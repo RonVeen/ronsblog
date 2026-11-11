@@ -1,7 +1,7 @@
 ---
 title: "JEP 535: Shenandoah GC Goes Generational by Default"
-date: "2026-11-08"
-draft: true
+date: "2026-11-11"
+draft: false
 tags: ["Java", "Java 28", "Shenandoah", "GC", "JVM"]
 series: ["Java 28"]
 series_order: 4
